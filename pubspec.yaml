@@ -1,0 +1,53 @@
+name: rckt_launch_app
+description: Rocketbot Web APP
+
+# Prevent accidental publishing to pub.dev.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  go_router: ^7.0.0
+  flutter_riverpod: ^2.3.6
+  riverpod_annotation: ^2.1.1
+  rxdart: ^0.27.7
+  flutter_secure_storage: ^8.0.0
+  http: ^0.13.6
+  freezed_annotation: ^2.2.0
+  url_launcher: ^6.1.10
+  decimal: ^2.3.2
+  google_fonts: ^4.0.4
+  qr_flutter: ^4.0.0
+  shared_preferences: ^2.1.0
+  universal_io: ^2.2.0
+  flutter_svg: ^2.0.5
+  flutter_dropzone: ^3.0.5
+  auto_size_text:
+    git:
+      url: https://github.com/f0rx/auto_size_text.git
+      ref: ft/selectable-text
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  freezed: ^2.3.3
+
+  flutter_lints: ^2.0.1
+
+flutter:
+  uses-material-design: true
+
+  # Enable generation of localized Strings from arb files.
+  generate: true
+
+  assets:
+    # Add assets from the images directory to the application.
+    - assets/images/

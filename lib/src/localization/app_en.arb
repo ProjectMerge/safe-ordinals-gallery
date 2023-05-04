@@ -1,0 +1,6 @@
+{
+  "appTitle": "Rockebot Safe Ordinals",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
