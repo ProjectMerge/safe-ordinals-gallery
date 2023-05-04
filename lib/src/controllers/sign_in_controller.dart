@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rckt_launch_app/src/support/auth_repo.dart';
-import 'package:rckt_launch_app/src/support/extensions.dart';
-import 'package:rckt_launch_app/src/support/string_validator.dart';
+import 'package:ordinals_pres/src/support/auth_repo.dart';
+import 'package:ordinals_pres/src/support/extensions.dart';
+import 'package:ordinals_pres/src/support/string_validator.dart';
 
 class EmailPasswordSignInController
     extends StateNotifier<EmailPasswordSignInState> {

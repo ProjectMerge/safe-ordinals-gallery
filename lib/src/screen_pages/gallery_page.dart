@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rckt_launch_app/src/support/app_sizes.dart';
-import 'package:rckt_launch_app/src/support/breakpoints.dart';
-import 'package:rckt_launch_app/src/widgets/flat_custom_btn.dart';
+import 'package:ordinals_pres/src/support/app_sizes.dart';
+import 'package:ordinals_pres/src/support/breakpoints.dart';
+import 'package:ordinals_pres/src/widgets/flat_custom_btn.dart';
 
 class GalleryPage extends ConsumerStatefulWidget {
   const GalleryPage({Key? key}) : super(key: key);

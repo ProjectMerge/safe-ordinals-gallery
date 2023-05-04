@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
-import 'package:rckt_launch_app/globals.dart' as globals;
-import 'package:rckt_launch_app/src/exceptions/app_exception.dart';
-import 'package:rckt_launch_app/src/models/AppUser.dart';
-import 'package:rckt_launch_app/src/net_interface/interface.dart';
-import 'package:rckt_launch_app/src/support/memory_store.dart';
-import 'package:rckt_launch_app/src/support/secure_storage.dart';
+import 'package:ordinals_pres/globals.dart' as globals;
+import 'package:ordinals_pres/src/exceptions/app_exception.dart';
+import 'package:ordinals_pres/src/models/AppUser.dart';
+import 'package:ordinals_pres/src/net_interface/interface.dart';
+import 'package:ordinals_pres/src/support/memory_store.dart';
+import 'package:ordinals_pres/src/support/secure_storage.dart';
 
 class AuthRepository {
   final _authState = InMemoryStore<AppUser?>(null);

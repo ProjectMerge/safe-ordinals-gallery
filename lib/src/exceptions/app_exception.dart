@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:rckt_launch_app/src/support/extensions.dart';
+import 'package:ordinals_pres/src/support/extensions.dart';
 
 part 'app_exception.freezed.dart';
 

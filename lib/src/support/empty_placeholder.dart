@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:rckt_launch_app/src/support/app_router.dart';
-import 'package:rckt_launch_app/src/support/app_sizes.dart';
-import 'package:rckt_launch_app/src/support/extensions.dart';
-import 'package:rckt_launch_app/src/widgets/primary_button.dart';
+import 'package:ordinals_pres/src/support/app_router.dart';
+import 'package:ordinals_pres/src/support/app_sizes.dart';
+import 'package:ordinals_pres/src/support/extensions.dart';
+import 'package:ordinals_pres/src/widgets/primary_button.dart';
 import 'package:go_router/go_router.dart';
 
 class EmptyPlaceholderWidget extends StatelessWidget {

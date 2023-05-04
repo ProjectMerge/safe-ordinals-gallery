@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rckt_launch_app/src/support/app_sizes.dart';
-import 'package:rckt_launch_app/src/widgets/flat_custom_btn.dart';
+import 'package:ordinals_pres/src/support/app_sizes.dart';
+import 'package:ordinals_pres/src/widgets/flat_custom_btn.dart';
 
 class MenuButtonRowWidget extends StatelessWidget {
   final VoidCallback onTap;

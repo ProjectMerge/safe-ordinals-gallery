@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:rckt_launch_app/src/support/app_sizes.dart';
-import 'package:rckt_launch_app/src/support/breakpoints.dart';
-import 'package:rckt_launch_app/src/widgets/responsible_center.dart';
+import 'package:ordinals_pres/src/support/app_sizes.dart';
+import 'package:ordinals_pres/src/support/breakpoints.dart';
+import 'package:ordinals_pres/src/widgets/responsible_center.dart';
 
 class ResponsiveScrollableCard extends StatelessWidget {
   const ResponsiveScrollableCard({super.key, required this.child});

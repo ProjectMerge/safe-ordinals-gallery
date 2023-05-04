@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rckt_launch_app/src/provider/title_provider.dart';
-import 'package:rckt_launch_app/src/screen_pages/home_page.dart';
-import 'package:rckt_launch_app/src/support/animated_clip_rect.dart';
-import 'package:rckt_launch_app/src/support/app_sizes.dart';
-import 'package:rckt_launch_app/src/widgets/flat_custom_btn.dart';
-import 'package:rckt_launch_app/src/widgets/menu_button_widget.dart';
-import 'package:rckt_launch_app/src/widgets/responsible_center.dart';
+import 'package:ordinals_pres/src/provider/title_provider.dart';
+import 'package:ordinals_pres/src/screen_pages/home_page.dart';
+import 'package:ordinals_pres/src/support/animated_clip_rect.dart';
+import 'package:ordinals_pres/src/support/app_sizes.dart';
+import 'package:ordinals_pres/src/widgets/flat_custom_btn.dart';
+import 'package:ordinals_pres/src/widgets/menu_button_widget.dart';
+import 'package:ordinals_pres/src/widgets/responsible_center.dart';
 // lib/src/desktop_screens/reference_screen.dart
 class OldReferenceScreen extends ConsumerStatefulWidget {
   const OldReferenceScreen({Key? key}) : super(key: key);

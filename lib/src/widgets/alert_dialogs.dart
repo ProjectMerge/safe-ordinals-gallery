@@ -4,7 +4,7 @@ import 'package:universal_io/io.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:rckt_launch_app/src/support/extensions.dart';
+import 'package:ordinals_pres/src/support/extensions.dart';
 
 Future<bool?> showAlertDialog({
   required BuildContext context,

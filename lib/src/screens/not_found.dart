@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rckt_launch_app/src/support/empty_placeholder.dart';
-import 'package:rckt_launch_app/src/support/extensions.dart';
+import 'package:ordinals_pres/src/support/empty_placeholder.dart';
+import 'package:ordinals_pres/src/support/extensions.dart';
 
 class NotFoundScreen extends StatelessWidget {
   const NotFoundScreen({super.key});

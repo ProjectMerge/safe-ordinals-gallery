@@ -4,7 +4,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:rckt_launch_app/src/net_interface/interface.dart';
+import 'package:ordinals_pres/src/net_interface/interface.dart';
 
 class PictureCacheWidget extends StatefulWidget {
   final String? smallUrl;

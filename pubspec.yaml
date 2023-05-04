@@ -1,5 +1,5 @@
-name: rckt_launch_app
-description: Rocketbot Web APP
+name: ordinals_pres
+description: Ordinals Safe Presentation
 
 # Prevent accidental publishing to pub.dev.
 publish_to: 'none'

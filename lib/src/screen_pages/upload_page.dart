@@ -4,18 +4,18 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rckt_launch_app/src/support/app_sizes.dart';
-import 'package:rckt_launch_app/src/support/breakpoints.dart';
+import 'package:ordinals_pres/src/support/app_sizes.dart';
+import 'package:ordinals_pres/src/support/breakpoints.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 
 // ignore: depend_on_referenced_packages
 import "package:path/path.dart";
-import "package:rckt_launch_app/globals.dart" as globals;
+import "package:ordinals_pres/globals.dart" as globals;
 
 import 'package:flutter/foundation.dart';
-import 'package:rckt_launch_app/src/support/secure_storage.dart';
-import 'package:rckt_launch_app/src/widgets/flat_custom_btn.dart';
+import 'package:ordinals_pres/src/support/secure_storage.dart';
+import 'package:ordinals_pres/src/widgets/flat_custom_btn.dart';
 
 import '../provider/title_provider.dart';
 

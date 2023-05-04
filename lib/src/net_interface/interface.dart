@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
-import 'package:rckt_launch_app/src/models/RefreshToken.dart';
-import 'package:rckt_launch_app/src/net_interface/app_exception.dart';
-import 'package:rckt_launch_app/src/support/secure_storage.dart';
+import 'package:ordinals_pres/src/models/RefreshToken.dart';
+import 'package:ordinals_pres/src/net_interface/app_exception.dart';
+import 'package:ordinals_pres/src/support/secure_storage.dart';
 
 import '/globals.dart' as globals;
 

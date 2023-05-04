@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rckt_launch_app/src/desktop_screens/dash_desktop_screen.dart';
-import 'package:rckt_launch_app/src/provider/title_provider.dart';
-import 'package:rckt_launch_app/src/support/s_p.dart';
-import 'package:rckt_launch_app/src/widgets/background_widget.dart';
+import 'package:ordinals_pres/src/desktop_screens/dash_desktop_screen.dart';
+import 'package:ordinals_pres/src/provider/title_provider.dart';
+import 'package:ordinals_pres/src/support/s_p.dart';
+import 'package:ordinals_pres/src/widgets/background_widget.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({

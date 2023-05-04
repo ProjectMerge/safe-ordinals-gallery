@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
-import 'package:rckt_launch_app/src/exceptions/app_exception.dart';
+import 'package:ordinals_pres/src/exceptions/app_exception.dart';
 
 part 'error_logger.g.dart';
 

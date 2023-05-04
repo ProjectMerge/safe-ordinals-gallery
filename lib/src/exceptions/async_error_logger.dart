@@ -1,7 +1,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rckt_launch_app/src/exceptions/app_exception.dart';
-import 'package:rckt_launch_app/src/exceptions/error_logger.dart';
+import 'package:ordinals_pres/src/exceptions/app_exception.dart';
+import 'package:ordinals_pres/src/exceptions/error_logger.dart';
 
 /// Error logger class to keep track of all AsyncError states that are set
 /// by the controllers in the app

@@ -11,9 +11,6 @@ void main() async {
   Paint.enableDithering = true;
 
   usePathUrlStrategy();
-  // Run the app and pass in the SettingsController. The app listens to the
-  // SettingsController for changes, then passes it further down to the
-  // SettingsView.
 
   runApp(const ProviderScope(child: MyApp()));
 }

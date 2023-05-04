@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rckt_launch_app/src/screens/home_screen.dart';
-import 'package:rckt_launch_app/src/screens/not_found.dart';
-import 'package:rckt_launch_app/src/support/auth_repo.dart';
-import 'package:rckt_launch_app/src/support/go_router_refresh_stream.dart';
+import 'package:ordinals_pres/src/screens/home_screen.dart';
+import 'package:ordinals_pres/src/screens/not_found.dart';
+import 'package:ordinals_pres/src/support/auth_repo.dart';
+import 'package:ordinals_pres/src/support/go_router_refresh_stream.dart';
 
 enum AppRoute {
   home,

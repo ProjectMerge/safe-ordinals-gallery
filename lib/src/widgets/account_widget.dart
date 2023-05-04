@@ -1,11 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rckt_launch_app/src/provider/login_notifier_provider.dart';
-import 'package:rckt_launch_app/src/provider/title_provider.dart';
-import 'package:rckt_launch_app/src/support/auth_repo.dart';
-import 'package:rckt_launch_app/src/widgets/concave_clip_container.dart';
-import 'package:rckt_launch_app/src/widgets/flat_custom_btn.dart';
+import 'package:ordinals_pres/src/provider/login_notifier_provider.dart';
+import 'package:ordinals_pres/src/provider/title_provider.dart';
+import 'package:ordinals_pres/src/support/auth_repo.dart';
+import 'package:ordinals_pres/src/widgets/concave_clip_container.dart';
+import 'package:ordinals_pres/src/widgets/flat_custom_btn.dart';
 
 class AccountWidget extends ConsumerStatefulWidget {
   final Size size;

@@ -1,0 +1,16 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: .
+    ports:
+      - "80:80"
+  backend:
+    build:
+      context: https://github.com/M1chlCZ/nsfw_sherlock.git#main
+      dockerfile: Dockerfile
+    environment:
+      - APP_ENV=grpc
+    ports:
+      - "4000:4000"
+    entrypoint: "./main"

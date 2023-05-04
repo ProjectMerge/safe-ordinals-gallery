@@ -2,11 +2,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rckt_launch_app/src/support/app_sizes.dart';
-import 'package:rckt_launch_app/src/support/breakpoints.dart';
-import 'package:rckt_launch_app/src/widgets/account_widget.dart';
-import 'package:rckt_launch_app/src/widgets/art_tile.dart';
-import 'package:rckt_launch_app/src/widgets/concave_clip_container.dart';
+import 'package:ordinals_pres/src/support/app_sizes.dart';
+import 'package:ordinals_pres/src/support/breakpoints.dart';
+import 'package:ordinals_pres/src/widgets/account_widget.dart';
+import 'package:ordinals_pres/src/widgets/art_tile.dart';
+import 'package:ordinals_pres/src/widgets/concave_clip_container.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);

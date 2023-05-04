@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rckt_launch_app/src/support/app_sizes.dart';
+import 'package:ordinals_pres/src/support/app_sizes.dart';
 
 typedef GetHover = Widget Function(bool value);
 typedef OnHover = Function(bool value);

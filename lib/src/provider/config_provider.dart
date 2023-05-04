@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:rckt_launch_app/src/net_interface/interface.dart';
-import 'package:rckt_launch_app/src/support/s_p.dart';
+import 'package:ordinals_pres/src/net_interface/interface.dart';
+import 'package:ordinals_pres/src/support/s_p.dart';
 
 final configProvider = FutureProvider.family<String?, int>((ref, id) async {
   try {

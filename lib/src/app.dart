@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:rckt_launch_app/src/support/app_router.dart';
+import 'package:ordinals_pres/src/support/app_router.dart';
 
 class MyApp extends ConsumerWidget {
   const MyApp({
