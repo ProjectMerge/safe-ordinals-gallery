@@ -58,6 +58,9 @@ func ping(c *fiber.Ctx) error {
 
 func getTX(c *fiber.Ctx) error {
 	tx := c.Params("tx")
+	if len(tx) < 2 {
+		return utils.ReportError(c, "tx is too short", fiber.StatusBadRequest)
+	}
 	//subtract 2 places from the end
 	tx = tx[:len(tx)-2]
 	res, err := utils.GETRequest[models.RawTX](fmt.Sprintf("https://blockstream.info/api/tx/%s", tx))
