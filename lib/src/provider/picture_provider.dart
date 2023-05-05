@@ -30,10 +30,10 @@ class PicProvider extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
           Uint8List bytesImage = const Base64Decoder().convert(response.base64!);
           state = AsyncData(<String, dynamic>{"image": bytesImage, "filename": response.filename, "nsfw": false, "status": response.status});
         } else {
-          state = AsyncData(<String, dynamic>{"image": "", "filename": "", "nsfw": true, "status": response.status});
+          state = AsyncData(<String, dynamic>{"image": "", "filename": "", "message": "is nsfw", "nsfw": true, "status": response.status});
         }
       } else {
-        state = state = AsyncData(<String, dynamic>{"image": response.message, "nsfw": true, "status": response.status});
+        state = state = AsyncData(<String, dynamic>{"message": response.message, "nsfw": false, "status": response.status});
         return;
       }
     } catch (e, st) {
@@ -51,7 +51,8 @@ class PicProvider extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
         return NSFWResponse.fromJson(jsonDecode(r.body));
       } else {
         print("shit");
-        return NSFWResponse(status: "Fail");
+        var err = NSFWResponse.fromJson(jsonDecode(r.body));
+        return NSFWResponse(status: err.status, message: err.message ?? r.statusCode.toString());
       }
     } catch (e) {
       print(e);

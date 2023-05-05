@@ -167,7 +167,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                             }
                             final bool nsfw = data["nsfw"];
                             final String status = data["status"];
-                            if (nsfw) {
+                            final String? message = data["message"];
+                            if (status.toLowerCase() == "fail") {
+                              var mess = "";
+                              if (message == "400") {
+                                mess = "Invalid Ordinal ID";
+                              }
                               return Center(
                                 child: Container(
                                     width: size.width *.5,
@@ -175,6 +180,19 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                     decoration: BoxDecoration(
                                       color: Colors.red.withOpacity(0.2),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Center(child: Text(mess))),
+                              );
+                            }
+                            if (nsfw) {
+                              return Center(
+                                child: Container(
+                                    width: size.width *.5,
+                                    height: size.height *.6,
+                                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red.withOpacity(0.5),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
                                     child: const Center(child: Text("This ordinal is NSFW"))),
@@ -192,6 +210,17 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     child: Center(child: Image.memory(data["image"] as Uint8List))),
                               );
                             }
+                            return Center(
+                              child: Container(
+                                  width: size.width *.5,
+                                  height: size.height *.6,
+                                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red.withOpacity(0.5),
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: const Center(child: Text("Invalid Ordinal ID"))),
+                            );
                           },
                           error: (error, s) => const Center(child: Text("Invalid Ordinal ID")),
                           loading: () => Center(
