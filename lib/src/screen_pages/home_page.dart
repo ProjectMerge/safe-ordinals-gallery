@@ -1,11 +1,16 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
 import 'package:ordinals_pres/src/provider/picture_provider.dart';
+import 'package:ordinals_pres/src/storage/data_model.dart';
 import 'package:ordinals_pres/src/support/app_sizes.dart';
 import 'package:ordinals_pres/src/support/breakpoints.dart';
+import 'package:ordinals_pres/src/widgets/alert_dialogs.dart';
 import 'package:ordinals_pres/src/widgets/auto_size_text_field.dart';
+import 'package:ordinals_pres/src/widgets/flat_custom_btn.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -152,8 +157,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                   gapH64,
                   Container(
-                      width: size.width *.5,
-                      height: size.height *.6,
+                      width: size.width * .5,
+                      height: size.height * .6,
                       decoration: BoxDecoration(
                         color: Colors.white54,
                         borderRadius: BorderRadius.circular(10),
@@ -175,8 +180,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                               }
                               return Center(
                                 child: Container(
-                                    width: size.width *.5,
-                                    height: size.height *.6,
+                                    width: size.width * .5,
+                                    height: size.height * .6,
                                     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                     decoration: BoxDecoration(
                                       color: Colors.red.withOpacity(0.2),
@@ -188,8 +193,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                             if (nsfw) {
                               return Center(
                                 child: Container(
-                                    width: size.width *.5,
-                                    height: size.height *.6,
+                                    width: size.width * .5,
+                                    height: size.height * .6,
                                     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                     decoration: BoxDecoration(
                                       color: Colors.red.withOpacity(0.5),
@@ -200,20 +205,43 @@ class _HomePageState extends ConsumerState<HomePage> {
                             } else if ((data["image"] as Uint8List?) != null) {
                               return Center(
                                 child: Container(
-                                    width: size.width *.5,
-                                    height: size.height *.6,
+                                    width: size.width * .5,
+                                    height: size.height * .6,
                                     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                     decoration: BoxDecoration(
                                       color: Colors.lightGreen.withOpacity(0.2),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    child: Center(child: Image.memory(data["image"] as Uint8List))),
+                                    child: Center(child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Image.memory(data["image"] as Uint8List),
+                                        Align(
+                                          alignment: Alignment.bottomCenter,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: FlatCustomButton(
+                                              onTap: () {
+                                                _saveToGallery(data["image"] as Uint8List, _controller.text);
+                                              },
+                                              radius: 8,
+                                              width: 140,
+                                              height: 40,
+                                              color: Colors.lightGreen.withOpacity(0.5),
+                                              splashColor: Colors.lightGreen.withOpacity(0.8),
+                                              child: const Text(
+                                                "Save to gallery", style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ))),
                               );
                             }
                             return Center(
                               child: Container(
-                                  width: size.width *.5,
-                                  height: size.height *.6,
+                                  width: size.width * .5,
+                                  height: size.height * .6,
                                   margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                   decoration: BoxDecoration(
                                     color: Colors.red.withOpacity(0.5),
@@ -223,7 +251,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                             );
                           },
                           error: (error, s) => const Center(child: Text("Invalid Ordinal ID")),
-                          loading: () => Center(
+                          loading: () =>
+                              Center(
                                 child: SizedBox(
                                     width: 50,
                                     height: 50,
@@ -241,5 +270,17 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   Widget _buildMobile(Size size) {
     return Container();
+  }
+
+  void _saveToGallery(Uint8List data, String name) {
+    try {
+      final value = base64Encode(data);
+      final myDataBox = Hive.box<MyData>('gallery');
+      final newData = MyData(name: 'New Data', base64: value);
+      myDataBox.add(newData);
+    } catch (e) {
+      showAlertDialog(context: context, title: "Error", content: "Error when saving to gallery");
+      print(e);
+    }
   }
 }

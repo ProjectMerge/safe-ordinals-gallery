@@ -2,10 +2,8 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mime/mime.dart';
 import 'package:ordinals_pres/src/models/nsfw_resp.dart';
 import 'package:ordinals_pres/src/net_interface/interface.dart';
-import 'package:ordinals_pres/src/support/s_p.dart';
 import 'package:http/http.dart' as http;
 
 class PicProvider extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
@@ -47,10 +45,8 @@ class PicProvider extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
       http.Response r =
           await ComInterface().get("/ord/$tx", debug: true, serverType: ComInterface.serverAUTH, type: ComInterface.typePlain, request: {});
       if (r.statusCode == 200) {
-        print("OK");
         return NSFWResponse.fromJson(jsonDecode(r.body));
       } else {
-        print("shit");
         var err = NSFWResponse.fromJson(jsonDecode(r.body));
         return NSFWResponse(status: err.status, message: err.message ?? r.statusCode.toString());
       }

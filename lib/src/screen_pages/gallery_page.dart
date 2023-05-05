@@ -1,8 +1,12 @@
+import 'dart:convert';
+
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:ordinals_pres/src/storage/data_model.dart';
 import 'package:ordinals_pres/src/support/app_sizes.dart';
 import 'package:ordinals_pres/src/support/breakpoints.dart';
-import 'package:ordinals_pres/src/widgets/flat_custom_btn.dart';
 
 class GalleryPage extends ConsumerStatefulWidget {
   const GalleryPage({Key? key}) : super(key: key);
@@ -12,6 +16,20 @@ class GalleryPage extends ConsumerStatefulWidget {
 }
 
 class _GalleryPageState extends ConsumerState<GalleryPage> {
+  List<MyData> _data = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() async {
+    var box = await Hive.openBox<MyData>('gallery');
+    _data = box.values.toList();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -29,184 +47,56 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
   Widget _buildDesktop(Size size) {
     return Column(
       children: [
-        gapH64,
+        gapH32,
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          decoration: BoxDecoration(
+            color: Colors.white24,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: const Text(
+            "Safe Ordinals Gallery",
+            style: TextStyle(fontSize: 24, color: Colors.black54),
+          ),
+        ),
+        gapH32,
         Expanded(
-          child: SingleChildScrollView(
-            child: SizedBox(
-              width: size.width * 0.95,
-              child: Stack(children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(left: 8.0, right: 12.0),
-                      height: size.height * 0.43,
-                      width: size.width * 0.7,
-                      decoration: BoxDecoration(
-                        color: Colors.black87,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          gapW32,
-                          Container(
-                            padding: const EdgeInsets.all(50.0),
-                            height: size.height * 0.365,
-                            width: size.width * 0.27,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Image.asset(
-                              "assets/images/flutter_logo.png",
-                              fit: BoxFit.none,
-                            ),
-                          ),
-                          gapW48,
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              gapH32,
-                              SizedBox(
-                                width: size.width * 0.345,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      "Flutter Logo",
-                                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white, fontWeight: FontWeight.w600),
-                                    ),
-                                    const Icon(
-                                      Icons.favorite,
-                                      color: Colors.white,
-                                      size: 24,
-                                    )
-                                  ],
-                                ),
-                              ),
-                              gapH32,
-                              Row(
-                                children: [
-                                  const CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage:
-                                        NetworkImage("https://launchpadbucket.s3.us-west-1.amazonaws.com/238a195d4c4173ac3d73b2bdab5feb0b..webp"),
-                                  ),
-                                  gapW16,
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Kuso Miso",
-                                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white, fontSize: 18),
-                                      ),
-                                      gapH4,
-                                      Text(
-                                        "@FlutterDeveloper",
-                                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white70, fontSize: 14),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                              gapH32,
-                              Row(children: [
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Price for Ordinal",
-                                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.w200),
-                                    ),
-                                    gapH16,
-                                    Row(
-                                      children: [
-                                        Image.network("https://seeklogo.com/images/B/binance-smart-chain-bsc-logo-9C34053D61-seeklogo.com.png", height: 30, width: 30),
-                                        gapW12,
-                                        Text(
-                                          "0.54 BSC",
-                                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white, fontSize: 30),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                gapW64,
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Time to end",
-                                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white70, fontSize: 18, fontWeight: FontWeight.w200),
-                                    ),
-                                    gapH16,
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "02h 01m 12s",
-                                          style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white, fontSize: 30),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ],),
-                              gapH48,
-                              gapH8,
-                              Row(
-                                children: [
-                                  FlatCustomButton(
-                                    height: 50,
-                                    width: 200,
-                                    color: Colors.white,
-                                    splashColor: Colors.limeAccent,
-                                    radius: 10,
-                                    onTap: () {},
-                                    child: Text(
-                                      "Buy Now",
-                                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.black, fontSize: 18),
-                                    ),
-                                  ),
-                                  gapW64,
-                                  FlatCustomButton(
-                                    height: 50,
-                                    width: 200,
-                                    color: Colors.transparent,
-                                    splashColor: Colors.white,
-                                    borderWidth: 1,
-                                    borderColor: Colors.white,
-                                    radius: 10,
-                                    onTap: () {},
-                                    child: Text(
-                                      "View collection",
-                                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.white, fontSize: 18),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ]),
+          child: GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 6,
             ),
+            itemCount: _data.length,
+            itemBuilder: (BuildContext context, int index) {
+              var data = _data[index];
+              return Container(
+                padding: const EdgeInsets.all(12),
+                margin: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: Colors.white30,
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.white30),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Expanded(
+                          child: Image.memory(
+                        base64.decode(data.base64),
+                        fit: BoxFit.fill,
+                      )),
+                      gapH8,
+                      AutoSizeText(
+                        data.name,
+                        style: const TextStyle(color: Colors.black54),
+                        maxLines: 1,
+                        minFontSize: 8,
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
           ),
         )
       ],

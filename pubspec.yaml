@@ -31,6 +31,7 @@ dependencies:
   flutter_dropzone: ^3.0.5
   mime: ^1.0.4
   hive: ^2.2.3
+  hive_flutter: ^1.1.0
   auto_size_text:
     git:
       url: https://github.com/f0rx/auto_size_text.git
