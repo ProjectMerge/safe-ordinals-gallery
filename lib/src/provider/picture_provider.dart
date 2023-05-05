@@ -56,9 +56,8 @@ class PicProvider extends StateNotifier<AsyncValue<Map<String,dynamic>>> {
     // final base64 = base64Encode(s);
     final mime = lookupMimeType('', headerBytes: s);
     final extension = extensionFromMime(mime!);
-    bool bp = extension == "jpg" || extension == "jpeg" || extension == "png";
+    bool bp = extension == "jpg" || extension == "jpeg" || extension == "png" || extension == "webp";
     if (bp) {
-
      var cls = await processImage(s, extension);
      return cls;
     }else{
