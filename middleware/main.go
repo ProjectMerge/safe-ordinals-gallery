@@ -9,8 +9,6 @@ import (
 	"github.com/btcsuite/btcd/txscript"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
-	"ord_data/grpcClient"
-	"ord_data/grpcModels"
 	"ord_data/models"
 	"ord_data/utils"
 	"os"
@@ -73,14 +71,10 @@ func getTX(c *fiber.Ctx) error {
 		utils.WrapErrorLog(err.Error())
 		return utils.ReportError(c, err.Error(), fiber.StatusBadRequest)
 	}
-	return c.Status(fiber.StatusOK).JSON(
-		fiber.Map{
-			"nsfwPicture": r.NsfwPicture,
-			"nsfwText":    r.NsfwText,
-		})
+	return c.Status(fiber.StatusOK).JSON(*r)
 }
 
-func getWitnessData(witnessData []string) (*grpcModels.NSFWResponse, error) {
+func getWitnessData(witnessData []string) (*models.ResponseJSON, error) {
 	witnessBytes, err := hex.DecodeString(witnessData[1])
 	if err != nil {
 		return nil, err
@@ -167,18 +161,26 @@ func getWitnessData(witnessData []string) (*grpcModels.NSFWResponse, error) {
 		}
 	}
 	if err2 != nil {
-		utils.WrapErrorLog(err2.Error())
 		return nil, err2
 	}
-
-	tx := &grpcModels.NSFWRequest{
-		Base64:   b64,
-		Filename: fmt.Sprintf("file.%s", fileType),
+	rest := &fiber.Map{
+		"base64":   b64,
+		"filename": fmt.Sprintf("file.%s", fileType),
 	}
-	r, err := grpcClient.DetectNSFW(tx)
+	address := os.Getenv("SERVER_HOST")
+	if address == "" {
+		address = "0.0.0.0:4000"
+	}
+	utils.ReportMessage(fmt.Sprintf("http://%s/pic/check", address))
+	r, err := utils.POSTRequest[models.ResponseJSON](fmt.Sprintf("http://%s/pic/check", address), rest)
 	if err != nil {
 		utils.WrapErrorLog(err.Error())
 		return nil, err
 	}
-	return r, nil
+
+	if r.NsfwPic == false && r.NsfwText == false {
+		r.Base64 = b64
+		r.Filename = fmt.Sprintf("file.%s", fileType)
+	}
+	return &r, nil
 }

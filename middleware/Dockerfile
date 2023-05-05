@@ -35,6 +35,12 @@ RUN go mod tidy && \
 #Use the official TensorFlow image as the base image
 FROM debian:stable-slim
 
+# Debian based root certificates
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends ca-certificates
+
+RUN update-ca-certificates
+
 COPY --from=builder /app/main .
 
 LABEL authors="M1chl"

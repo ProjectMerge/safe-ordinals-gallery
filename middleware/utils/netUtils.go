@@ -1,94 +1,94 @@
 package utils
 
 import (
-    "bytes"
-    "encoding/json"
-    "errors"
-    "fmt"
-    "github.com/gofiber/fiber/v2"
-    "io"
-    "mime/multipart"
-    "net/http"
-    "os"
-    "strconv"
+	"bytes"
+	"encoding/json"
+	"errors"
+	"fmt"
+	"github.com/gofiber/fiber/v2"
+	"io"
+	"mime/multipart"
+	"net/http"
+	"os"
+	"strconv"
 )
 
 func GETRequest[T any](url string) (T, error) {
-    var data T
-    resp, err := http.Get(url)
-    if err != nil {
-        return data, err
-    }
-    defer resp.Body.Close()
+	var data T
+	resp, err := http.Get(url)
+	if err != nil {
+		return data, err
+	}
+	defer resp.Body.Close()
 
-    body, err := io.ReadAll(resp.Body)
-    if err != nil {
-        return data, err
-    }
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return data, err
+	}
 
-    if resp.StatusCode != http.StatusOK {
-        if body != nil {
-            err = json.Unmarshal(body, &data)
-            if err != nil {
-                return data, err
-            }
-            return data, errors.New("GET request failed with status code: " + resp.Status)
-        }
-        return data, errors.New("GET request failed with status code: " + resp.Status)
-    }
+	if resp.StatusCode != http.StatusOK {
+		if body != nil {
+			err = json.Unmarshal(body, &data)
+			if err != nil {
+				return data, err
+			}
+			return data, errors.New("GET request failed with status code: " + resp.Status)
+		}
+		return data, errors.New("GET request failed with status code: " + resp.Status)
+	}
 
-    err = json.Unmarshal(body, &data)
-    if err != nil {
-        return data, err
-    }
+	err = json.Unmarshal(body, &data)
+	if err != nil {
+		return data, err
+	}
 
-    return data, nil
+	return data, nil
 }
 
 func POSTRequest[T any](endpoint string, data *fiber.Map) (T, error) {
-    var responseData T
-    urlPost := fmt.Sprintf("%s%s%s", ServerUrl, "/api/v1/", endpoint)
-    jsonData, err := json.Marshal(data)
-    if err != nil {
-        return responseData, err
-    }
+	var responseData T
+	urlPost := endpoint
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		return responseData, err
+	}
 
-    req, err := http.NewRequest("POST", urlPost, bytes.NewBuffer(jsonData))
-    if err != nil {
-        return responseData, err
-    }
+	req, err := http.NewRequest("POST", urlPost, bytes.NewBuffer(jsonData))
+	if err != nil {
+		return responseData, err
+	}
 
-    req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Content-Type", "application/json")
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    if err != nil {
-        return responseData, err
-    }
-    defer resp.Body.Close()
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return responseData, err
+	}
+	defer resp.Body.Close()
 
-    body, err := io.ReadAll(resp.Body)
-    if err != nil {
-        return responseData, err
-    }
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return responseData, err
+	}
 
-    if resp.StatusCode != http.StatusOK {
-        if body != nil {
-            err = json.Unmarshal(body, &responseData)
-            if err != nil {
-                return responseData, err
-            }
-            return responseData, errors.New("GET request failed with status code: " + resp.Status)
-        }
-        return responseData, errors.New("GET request failed with status code: " + resp.Status)
-    }
+	if resp.StatusCode != http.StatusOK {
+		if body != nil {
+			err = json.Unmarshal(body, &responseData)
+			if err != nil {
+				return responseData, err
+			}
+			return responseData, errors.New("GET request failed with status code: " + resp.Status)
+		}
+		return responseData, errors.New("GET request failed with status code: " + resp.Status)
+	}
 
-    err = json.Unmarshal(body, &responseData)
-    if err != nil {
-        return responseData, err
-    }
+	err = json.Unmarshal(body, &responseData)
+	if err != nil {
+		return responseData, err
+	}
 
-    return responseData, nil
+	return responseData, nil
 }
 
 //func DownloadImage(insciptID string) (string, error) {
@@ -203,54 +203,54 @@ func POSTRequest[T any](endpoint string, data *fiber.Map) (T, error) {
 //}
 
 func SendBackupToServer(filePath string) error {
-    file, err := os.Open(filePath)
-    if err != nil {
-        return fmt.Errorf("failed to open file: %w", err)
-    }
-    defer file.Close()
+	file, err := os.Open(filePath)
+	if err != nil {
+		return fmt.Errorf("failed to open file: %w", err)
+	}
+	defer file.Close()
 
-    // Prepare a buffer to hold the multipart request data
-    var requestBody bytes.Buffer
-    writer := multipart.NewWriter(&requestBody)
+	// Prepare a buffer to hold the multipart request data
+	var requestBody bytes.Buffer
+	writer := multipart.NewWriter(&requestBody)
 
-    // Create a new file field in the multipart request
-    part, err := writer.CreateFormFile("file", file.Name())
-    if err != nil {
-        return fmt.Errorf("failed to create form file: %w", err)
-    }
+	// Create a new file field in the multipart request
+	part, err := writer.CreateFormFile("file", file.Name())
+	if err != nil {
+		return fmt.Errorf("failed to create form file: %w", err)
+	}
 
-    // Copy the file content to the multipart request
-    _, err = io.Copy(part, file)
-    if err != nil {
-        return fmt.Errorf("failed to copy file content: %w", err)
-    }
+	// Copy the file content to the multipart request
+	_, err = io.Copy(part, file)
+	if err != nil {
+		return fmt.Errorf("failed to copy file content: %w", err)
+	}
 
-    // Close the multipart writer to finalize the request body
-    err = writer.Close()
-    if err != nil {
-        return fmt.Errorf("failed to close multipart writer: %w", err)
-    }
+	// Close the multipart writer to finalize the request body
+	err = writer.Close()
+	if err != nil {
+		return fmt.Errorf("failed to close multipart writer: %w", err)
+	}
 
-    // Send the HTTP POST request with the multipart file upload
-    req, err := http.NewRequest(http.MethodPost, fmt.Sprintf("http://%s:7100/backup", ServerUrl), &requestBody)
-    if err != nil {
-        return fmt.Errorf("failed to create request: %w", err)
-    }
+	// Send the HTTP POST request with the multipart file upload
+	req, err := http.NewRequest(http.MethodPost, fmt.Sprintf("http://%s:7100/backup", ServerUrl), &requestBody)
+	if err != nil {
+		return fmt.Errorf("failed to create request: %w", err)
+	}
 
-    // Set the Content-Type header to the correct value for a multipart request
-    req.Header.Set("Content-Type", writer.FormDataContentType())
-    req.Header.Set("Content-Length", strconv.Itoa(requestBody.Len()))
+	// Set the Content-Type header to the correct value for a multipart request
+	req.Header.Set("Content-Type", writer.FormDataContentType())
+	req.Header.Set("Content-Length", strconv.Itoa(requestBody.Len()))
 
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    if err != nil {
-        return fmt.Errorf("failed to send request: %w", err)
-    }
-    defer resp.Body.Close()
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return fmt.Errorf("failed to send request: %w", err)
+	}
+	defer resp.Body.Close()
 
-    if resp.StatusCode != http.StatusOK {
-        return fmt.Errorf("server responded with status code %d", resp.StatusCode)
-    }
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("server responded with status code %d", resp.StatusCode)
+	}
 
-    return nil
+	return nil
 }
