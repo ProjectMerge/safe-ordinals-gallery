@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 bool isLoggedIn = false;
-const String API_URL = 'http://127.0.0.0.1:4000';
-const String AUTH_URL = 'http://127.0.0.0.1:4000';
+const String API_URL = 'http://localhost:4000';
+const String AUTH_URL = 'http://localhost:4000';
 const String EMAIL = "addr";
 const String NAME = "username";
 const String ID = "idUser";

@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:ordinals_pres/src/exceptions/app_exception.dart';
 
-part 'error_logger.g.dart';
+part "error_logger.g.dart";
 
 class ErrorLogger {
   void logError(Object error, StackTrace? stackTrace) {
