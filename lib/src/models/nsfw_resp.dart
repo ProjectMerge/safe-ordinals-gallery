@@ -1,25 +1,30 @@
-
 class NSFWResponse {
-  String? message;
-  bool? nsfwPic;
-  bool? nsfwText;
   String? status;
+  String? message;
+  bool? nsfwText;
+  bool? nsfwPic;
+  String? base64;
+  String? filename;
 
-  NSFWResponse({this.message, this.nsfwPic, this.nsfwText, this.status});
+  NSFWResponse({this.status, this.message, this.nsfwText, this.nsfwPic, this.base64, this.filename});
 
   NSFWResponse.fromJson(Map<String, dynamic> json) {
-    message = json['message'];
-    nsfwPic = json['nsfwPic'];
-    nsfwText = json['nsfwText'];
     status = json['status'];
+    message = json['message'];
+    nsfwText = json['nsfwText'];
+    nsfwPic = json['nsfwPic'];
+    base64 = json['base64'];
+    filename = json['filename'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['message'] = message;
-    data['nsfwPic'] = nsfwPic;
-    data['nsfwText'] = nsfwText;
     data['status'] = status;
+    data['message'] = message;
+    data['nsfwText'] = nsfwText;
+    data['nsfwPic'] = nsfwPic;
+    data['base64'] = base64;
+    data['filename'] = filename;
     return data;
   }
 }

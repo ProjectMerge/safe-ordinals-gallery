@@ -165,9 +165,9 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 child: Text("Please enter ordinal ID to box above"),
                               );
                             }
-                            final nsfw = data["nsfw"];
-                            final status = data["status"];
-                            if (nsfw == "true") {
+                            final bool nsfw = data["nsfw"];
+                            final String status = data["status"];
+                            if (nsfw) {
                               return Center(
                                 child: Container(
                                     width: size.width *.5,
@@ -179,19 +179,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     ),
                                     child: const Center(child: Text("This ordinal is NSFW"))),
                               );
-                            } else if (status.isNotEmpty) {
-                              return Center(
-                                child: Container(
-                                    width: size.width *.5,
-                                    height: size.height *.6,
-                                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                                    decoration: BoxDecoration(
-                                      color: Colors.red.withOpacity(0.2),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Center(child: Text(status!))),
-                              );
-                            } else {
+                            } else if ((data["image"] as Uint8List?) != null) {
                               return Center(
                                 child: Container(
                                     width: size.width *.5,

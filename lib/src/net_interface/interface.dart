@@ -37,6 +37,8 @@ class ComInterface {
     }
     bearer = "JWT ${daoJWT ?? ""}";
 
+    print(mUrl);
+
     try {
       Map<String, String> mHeaders = {
         "Access-Control-Allow-Origin": "*",
