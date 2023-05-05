@@ -28,9 +28,13 @@ class PicProvider extends StateNotifier<AsyncValue<Map<String,dynamic>>> {
       final response = await http.get(Uri.parse('https://ordinals.com/content/$id'));
       if (response.statusCode == 200) {
         final responseData = response.bodyBytes;
-        var b = await parseImage(responseData);
+        var b = await parseImage(responseData, response.headers["content-type"] ?? "text/html");
         if (b.status != "ok") {
-          state = AsyncError(b.status!, StackTrace.current);
+          state = state = AsyncData(<String, dynamic>{
+            "image" : responseData,
+            "nsfw" : false,
+            "status" :"unsupported mimeType"
+          });
           return;
         }else if (b.nsfwPic! || b.nsfwText!) {
           state = AsyncData(<String, dynamic>{
@@ -41,10 +45,15 @@ class PicProvider extends StateNotifier<AsyncValue<Map<String,dynamic>>> {
           state = AsyncData(<String, dynamic>{
             "image" : responseData,
             "nsfw" : false,
+            "status" :"unsupported mimeType"
           });
         }
       } else {
-        state = AsyncError("Shit", StackTrace.current);
+        state = const AsyncData(<String, dynamic>{
+          "image" : null,
+          "nsfw" : false,
+          "status" : "Invalid URL",
+        });
       }
     } catch (e, st) {
       print(e.toString());
@@ -52,16 +61,16 @@ class PicProvider extends StateNotifier<AsyncValue<Map<String,dynamic>>> {
     }
   }
 
-  Future<NSFWResponse> parseImage(Uint8List s) async {
+  Future<NSFWResponse> parseImage(Uint8List s, String mimeType) async {
     // final base64 = base64Encode(s);
     final mime = lookupMimeType('', headerBytes: s);
-    final extension = extensionFromMime(mime!);
+    final extension = mimeType.split("/")[0].split(";")[0];
     bool bp = extension == "jpg" || extension == "jpeg" || extension == "png" || extension == "webp";
     if (bp) {
      var cls = await processImage(s, extension);
      return cls;
     }else{
-      return NSFWResponse(status: "Not a Picture");
+      return NSFWResponse(status: "Unsupported mimeType");
     }
   }
 

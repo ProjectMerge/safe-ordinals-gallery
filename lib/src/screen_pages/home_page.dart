@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ordinals_pres/src/provider/picture_provider.dart';
 import 'package:ordinals_pres/src/support/app_sizes.dart';
 import 'package:ordinals_pres/src/support/breakpoints.dart';
+import 'package:ordinals_pres/src/widgets/auto_size_text_field.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -128,9 +129,11 @@ class _HomePageState extends ConsumerState<HomePage> {
                               ),
                               border: Border.all(color: Colors.white.withOpacity(0.5))),
                           child: Center(
-                            child: TextField(
+                            child: AutoSizeTextField(
                               controller: _controller,
                               style: const TextStyle(fontSize: 24, color: Colors.blueGrey),
+                              maxLines: 1,
+                              minFontSize: 8.0,
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 focusedBorder: InputBorder.none,
@@ -149,8 +152,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                   gapH64,
                   Container(
-                      width: 500,
-                      height: 600,
+                      width: size.width *.5,
+                      height: size.height *.6,
                       decoration: BoxDecoration(
                         color: Colors.white54,
                         borderRadius: BorderRadius.circular(10),
@@ -162,12 +165,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 child: Text("Please enter ordinal ID to box above"),
                               );
                             }
-                            final status = data["nsfw"];
-                            if (status == "true") {
+                            final nsfw = data["nsfw"];
+                            final status = data["status"];
+                            if (nsfw == "true") {
                               return Center(
                                 child: Container(
-                                    width: 500,
-                                    height: 600,
+                                    width: size.width *.5,
+                                    height: size.height *.6,
                                     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                     decoration: BoxDecoration(
                                       color: Colors.red.withOpacity(0.2),
@@ -175,11 +179,23 @@ class _HomePageState extends ConsumerState<HomePage> {
                                     ),
                                     child: const Center(child: Text("This ordinal is NSFW"))),
                               );
+                            } else if (status.isNotEmpty) {
+                              return Center(
+                                child: Container(
+                                    width: size.width *.5,
+                                    height: size.height *.6,
+                                    margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red.withOpacity(0.2),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Center(child: Text(status!))),
+                              );
                             } else {
                               return Center(
                                 child: Container(
-                                    width: 500,
-                                    height: 600,
+                                    width: size.width *.5,
+                                    height: size.height *.6,
                                     margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                                     decoration: BoxDecoration(
                                       color: Colors.lightGreen.withOpacity(0.2),
