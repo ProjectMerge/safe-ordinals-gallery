@@ -46,3 +46,4 @@ app.*.map.json
 lib/generated/*
 upload
 /middleware/grpcModels/
+/middleware/db/data.db

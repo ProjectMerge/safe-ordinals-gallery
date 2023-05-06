@@ -36,6 +36,7 @@ func main() {
 
 	app.Get("/ord/:tx", getTX)
 	app.Get("/ping", ping)
+	app.Post("/image/save", savePic)
 
 	go func() {
 		err := app.Listen(fmt.Sprintf(":%d", 4100))
@@ -53,6 +54,28 @@ func main() {
 	defer cancel()
 	_ = app.Shutdown()
 	os.Exit(0)
+}
+
+func savePic(c *fiber.Ctx) error {
+	type Request struct {
+		Base64 string `json:"base64"`
+		Name   string `json:"name"`
+	}
+	var req Request
+	err := c.BodyParser(&req)
+	if err != nil {
+		utils.WrapErrorLog(err.Error())
+		return utils.ReportError(c, err.Error(), fiber.StatusBadRequest)
+	}
+	if req.Base64 == "" {
+		return utils.ReportError(c, "Bad Request", fiber.StatusBadRequest)
+	}
+	_, err = db.InsertSQl("INSERT INTO ORD (ord_id, base64) VALUES (?, ?)", req.Name, req.Base64)
+	if err != nil {
+		utils.WrapErrorLog(err.Error())
+		return utils.ReportError(c, err.Error(), fiber.StatusBadRequest)
+	}
+	return c.SendStatus(fiber.StatusOK)
 }
 
 func ping(c *fiber.Ctx) error {
