@@ -55,6 +55,10 @@ You are [welcome to contact us](https://) for change requests, membership questi
 
 ## Credits
 
+Code by: [M1chlCZ](https://github.com/M1chlCZ)
+
 Model, snippets of logic: https://github.com/photoprism/photoprism
+
 Tensorflow-GO: https://github.com/galeone/tfgo
+
 OCR: https://github.com/otiai10/gosseract
