@@ -9,6 +9,7 @@ import (
 	"github.com/btcsuite/btcd/txscript"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"ord_data/db"
 	"ord_data/models"
 	"ord_data/utils"
 	"os"
@@ -19,6 +20,11 @@ import (
 )
 
 func main() {
+	err := db.InitDB()
+	if err != nil {
+		utils.WrapErrorLog(err.Error())
+		panic(err)
+	}
 	app := fiber.New(fiber.Config{
 		AppName:       "Rocketbot ORD API",
 		StrictRouting: false,

@@ -68,41 +68,13 @@ func InitDB() error {
 }
 
 func initTables(db *sqlx.DB) {
-	createTxTable := `CREATE TABLE IF NOT EXISTS TRANSACTIONS_ORD (
+	createTxTable := `CREATE TABLE IF NOT EXISTS ORD (
 		"id" integer NOT NULL PRIMARY KEY AUTOINCREMENT,	
-		"ord_id" TEXT NOT NULL,
-		"tx_id" TEXT NOT NULL UNIQUE,	
-		"bc_address" TEXT NOT NULL,
-		"link" TEXT NOT NULL,
-		"content_link" TEXT NOT NULL		
+		"base64" TEXT NOT NULL,
+		"ord_id" TEXT NOT NULL UNIQUE		
 	  );`
 
-	createListTxTablet := `
-CREATE TABLE IF NOT EXISTS LIST_TRANSACTIONS (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    address TEXT NOT NULL,
-    category TEXT NOT NULL,
-    amount REAL NOT NULL,
-    vout INTEGER NOT NULL,
-    fee REAL,
-    confirmations INTEGER NOT NULL,
-    blockhash TEXT,
-    blockheight INTEGER,
-    blockindex INTEGER,
-    blocktime INTEGER,
-    txid TEXT UNIQUE NOT NULL,
-    wtxid TEXT NOT NULL,
-    time INTEGER NOT NULL,
-    timereceived INTEGER NOT NULL,
-    bip125_replaceable TEXT NOT NULL,
-    abandoned INTEGER NOT NULL,
-    label TEXT,
-    trusted INTEGER
-);
-`
-
 	err := ExecQuery(db, createTxTable)
-	err = ExecQuery(db, createListTxTablet)
 	if err != nil {
 		utils.WrapErrorLog(err.Error())
 		return
