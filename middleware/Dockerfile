@@ -53,7 +53,7 @@ RUN update-ca-certificates
 WORKDIR /app
 
 # Copy the compiled binary from the builder stage
-COPY --from=builder /app/main /app/main
+COPY --from=builder /app/main .
 
 # Set metadata
 LABEL authors="M1chl"
