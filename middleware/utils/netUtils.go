@@ -26,15 +26,19 @@ func GETRequest[T any](url string) (T, error) {
 		return data, err
 	}
 
-	if resp.StatusCode != http.StatusOK {
-		if body != nil {
-			err = json.Unmarshal(body, &data)
-			if err != nil {
-				return data, err
-			}
-			return data, errors.New("GET request failed with status code: " + resp.Status)
-		}
-		return data, errors.New("GET request failed with status code: " + resp.Status)
+	//if resp.StatusCode != http.StatusOK {
+	//	if body != nil {
+	//		err = json.Unmarshal(body, &data)
+	//		if err != nil {
+	//			return data, err
+	//		}
+	//		return data, errors.New("GET request failed with status code: " + resp.Status)
+	//	}
+	//	return data, errors.New("GET request failed with status code: " + resp.Status)
+	//}
+
+	if string(body) == "Invalid hex string" {
+		return data, errors.New("Invalid TX ID")
 	}
 
 	err = json.Unmarshal(body, &data)
