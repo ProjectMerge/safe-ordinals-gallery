@@ -6,10 +6,10 @@ RUN apt-get update && apt-get install -y \
      wget \
      git \
      gcc \
-    unzip \
+     unzip \
      build-essential \
-    sqlite3 \
-    libsqlite3-dev
+     sqlite3 \
+     libsqlite3-dev
 
 # Install protobuf compiler and gRPC plugins
 RUN apt-get install -y protobuf-compiler
@@ -59,4 +59,4 @@ COPY --from=builder /app/main /app/main
 LABEL authors="M1chl"
 
 # Run the application
-CMD ["./main"]
+CMD ["./app/main"]
