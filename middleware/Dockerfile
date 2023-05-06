@@ -52,6 +52,8 @@ RUN update-ca-certificates
 # Set the working directory
 WORKDIR /app
 
+RUN mkdir -p db
+
 # Copy the compiled binary from the builder stage
 COPY --from=builder /app/main /app/main
 

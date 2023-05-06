@@ -18,7 +18,7 @@ type Client struct {
 
 var Database *Client
 
-const dbName string = ".datb"
+const dbName string = "./db/.datb"
 
 const dbVersion int = 1
 
