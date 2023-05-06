@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
@@ -9,7 +10,6 @@ import 'package:ordinals_pres/src/storage/data_model.dart';
 import 'package:ordinals_pres/src/support/app_sizes.dart';
 import 'package:ordinals_pres/src/support/breakpoints.dart';
 import 'package:ordinals_pres/src/widgets/alert_dialogs.dart';
-import 'package:ordinals_pres/src/widgets/auto_size_text_field.dart';
 import 'package:ordinals_pres/src/widgets/flat_custom_btn.dart';
 
 class HomePage extends ConsumerStatefulWidget {
