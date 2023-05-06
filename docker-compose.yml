@@ -5,6 +5,8 @@ services:
       context: .
     ports:
       - "80:80"
+    extra_hosts:
+      - "dockerhost:$DOCKERHOST"
   middleware:
     build:
       context: ./middleware
