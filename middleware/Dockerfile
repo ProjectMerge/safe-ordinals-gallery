@@ -59,4 +59,4 @@ COPY --from=builder /app/main /app/main
 LABEL authors="M1chl"
 
 # Run the application
-CMD ["./app/main"]
+CMD ["/app/main"]
