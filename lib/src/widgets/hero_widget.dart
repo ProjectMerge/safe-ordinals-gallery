@@ -8,7 +8,7 @@ import 'package:ordinals_pres/src/widgets/flat_custom_btn.dart';
 
 class GalleryHeroWidget extends StatelessWidget {
   final String tag;
-  final MyData data;
+  final String data;
   const GalleryHeroWidget({Key? key, required this.tag, required this.data}) : super(key: key);
 
   @override
@@ -27,12 +27,12 @@ class GalleryHeroWidget extends StatelessWidget {
               children: [
                 Expanded(
                     child: Image.memory(
-                      base64.decode(data.base64),
+                      base64.decode(data),
                       fit: BoxFit.fill,
                     )),
                 gapH8,
                 AutoSizeText(
-                  data.name,
+                  tag,
                   style: const TextStyle(color: Colors.black54),
                   maxLines: 1,
                   minFontSize: 8,

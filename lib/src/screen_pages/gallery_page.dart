@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:ordinals_pres/src/provider/gallery_provider.dart';
 import 'package:ordinals_pres/src/storage/data_model.dart';
 import 'package:ordinals_pres/src/support/app_sizes.dart';
 import 'package:ordinals_pres/src/support/breakpoints.dart';
@@ -18,18 +19,9 @@ class GalleryPage extends ConsumerStatefulWidget {
 }
 
 class _GalleryPageState extends ConsumerState<GalleryPage> {
-  List<MyData> _data = [];
-
   @override
   void initState() {
     super.initState();
-    getData();
-  }
-
-  getData() async {
-    var box = await Hive.openBox<MyData>('gallery');
-    _data = box.values.toList();
-    setState(() {});
   }
 
   @override
@@ -63,63 +55,69 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
         ),
         gapH32,
         Expanded(
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 6,
-            ),
-            itemCount: _data.length,
-            itemBuilder: (BuildContext context, int index) {
-              var data = _data[index];
-              return Hero(
-                tag: data.name,
-                child: InkWell(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          backgroundColor: Colors.transparent,
-                          content: GalleryHeroWidget(
-                            tag: data.name,
-                            data: data,
+            child: ref.watch(galleryProvider).when(
+                data: (data) => GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 6,
+                      ),
+                      itemCount: data?.gallery?.length ?? 0,
+                      itemBuilder: (BuildContext context, int index) {
+                        var dat = data!.gallery![index];
+                        return Hero(
+                          tag: dat.ordId!,
+                          child: InkWell(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    backgroundColor: Colors.transparent,
+                                    content: GalleryHeroWidget(
+                                      tag: dat.ordId!,
+                                      data: dat.base64!,
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(12),
+                              margin: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.white30,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.white30),
+                              ),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                        child: Image.memory(
+                                      base64.decode(dat.base64!),
+                                      fit: BoxFit.fill,
+                                    )),
+                                    gapH8,
+                                    AutoSizeText(
+                                      dat.ordId!,
+                                      style: const TextStyle(
+                                          color: Colors.black54),
+                                      maxLines: 1,
+                                      minFontSize: 8,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                           ),
                         );
                       },
-                    );
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(12),
-                    margin: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.white30,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.white30),
                     ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                              child: Image.memory(
-                            base64.decode(data.base64),
-                            fit: BoxFit.fill,
-                          )),
-                          gapH8,
-                          AutoSizeText(
-                            data.name,
-                            style: const TextStyle(color: Colors.black54),
-                            maxLines: 1,
-                            minFontSize: 8,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        )
+                error: (e, s) => Center(child: Text(e.toString())),
+                loading: () => const Center(
+                      child: CircularProgressIndicator(),
+                    )))
       ],
     );
   }
@@ -167,49 +165,53 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
             ),
             gapH32,
             Expanded(
-              child: GridView.builder(
-                physics: const BouncingScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                ),
-                itemCount: _data.length,
-                itemBuilder: (BuildContext context, int index) {
-                  var data = _data[index];
-                  return Container(
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.all(4),
-                    decoration: BoxDecoration(
-                      color: Colors.white30,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: Colors.white30),
-                    ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                              child: Image.memory(
-                                base64.decode(data.base64),
-                                fit: BoxFit.fill,
-                              )),
-                          gapH8,
-                          AutoSizeText(
-                            data.name,
-                            style: const TextStyle(color: Colors.black54),
-                            maxLines: 1,
-                            minFontSize: 8,
+                child: ref.watch(galleryProvider).when(
+                    data: (dat) => GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 6,
                           ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            )
+                          itemCount: dat?.gallery?.length ?? 0,
+                          itemBuilder: (BuildContext context, int index) {
+                            var data = dat!.gallery![index];
+                            return Container(
+                              padding: const EdgeInsets.all(10),
+                              margin: const EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                color: Colors.white30,
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.white30),
+                              ),
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                        child: Image.memory(
+                                      base64.decode(data.base64!),
+                                      fit: BoxFit.fill,
+                                    )),
+                                    gapH8,
+                                    AutoSizeText(
+                                      data.ordId!,
+                                      style: const TextStyle(
+                                          color: Colors.black54),
+                                      maxLines: 1,
+                                      minFontSize: 8,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                    error: (e, s) => Center(child: Text(e.toString())),
+                    loading: () => const Center(
+                          child: CircularProgressIndicator(),
+                        )))
           ],
         ),
       ),
     );
   }
-
 }

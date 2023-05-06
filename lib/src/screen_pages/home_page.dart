@@ -9,6 +9,7 @@ import 'package:ordinals_pres/src/provider/picture_provider.dart';
 import 'package:ordinals_pres/src/storage/data_model.dart';
 import 'package:ordinals_pres/src/support/app_sizes.dart';
 import 'package:ordinals_pres/src/support/breakpoints.dart';
+import 'package:ordinals_pres/src/support/s_p.dart';
 import 'package:ordinals_pres/src/widgets/alert_dialogs.dart';
 import 'package:ordinals_pres/src/widgets/flat_custom_btn.dart';
 
@@ -242,18 +243,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                   padding: const EdgeInsets.all(
                                                       18.0),
                                                   child: FlatCustomButton(
-                                                    onTap: () {
-                                                     var asdf =  _saveToGallery(
+                                                    onTap: () async {
+                                                     var asdf =  await _saveToGallery(
                                                           data["image"]
                                                               as Uint8List,
                                                           _controller.text);
                                                       _controller.text = "";
                                                      if (asdf) {
-                                                       var snackBar = SnackBar(content: Text('Saved to gallery'), backgroundColor: Colors.lightGreen,);
-                                                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                       var snackBar = const SnackBar(content: Text('Saved to gallery'), backgroundColor: Colors.lightGreen,);
+                                                       if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                                      }else{
-                                                       var snackBar = SnackBar(content: Text('Failed to save, ordinal already in the gallery'), backgroundColor: Colors.red,);
-                                                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                       var snackBar = const SnackBar(content: Text('Failed to save, ordinal already in the gallery'), backgroundColor: Colors.red,);
+                                                       if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                                      }
                                                     },
                                                     radius: 8,
@@ -505,18 +506,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                 padding: const EdgeInsets.all(
                                                     18.0),
                                                 child: FlatCustomButton(
-                                                  onTap: () {
-                                                    var asdf =  _saveToGallery(
+                                                  onTap: () async {
+                                                    var asdf =  await _saveToGallery(
                                                         data["image"]
                                                         as Uint8List,
                                                         _controller.text);
                                                     _controller.text = "";
                                                     if (asdf) {
-                                                      var snackBar = SnackBar(content: Text('Saved to gallery'), backgroundColor: Colors.lightGreen,);
-                                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                      var snackBar = const SnackBar(content: Text('Saved to gallery'), backgroundColor: Colors.lightGreen,);
+                                                      if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                                     }else{
-                                                      var snackBar = SnackBar(content: Text('Failed to save, ordinal already in the gallery'), backgroundColor: Colors.red,);
-                                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                      var snackBar = const SnackBar(content: Text('Failed to save, ordinal already in the gallery'), backgroundColor: Colors.red,);
+                                                      if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                                     }
                                                   },
                                                   radius: 8,
@@ -576,19 +577,11 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  bool _saveToGallery(Uint8List data, String nameFile) {
+  Future<bool> _saveToGallery(Uint8List data, String nameFile) async {
     try {
       final value = base64Encode(data);
-      final myDataBox = Hive.box<MyData>('gallery');
-      //check if data already exist
-      for (var i = 0; i < myDataBox.length; i++) {
-        final MyData myData = myDataBox.getAt(i)!;
-        if (myData.base64 == value) {
-          return false;
-        }
-      }
-      final newData = MyData(name: nameFile, base64: value);
-      myDataBox.add(newData);
+      final net = ref.read(networkProvider);
+      await net.post("/image/save", body: {"base64": value, "name": nameFile});
       return true;
     } catch (e) {
       showAlertDialog(
