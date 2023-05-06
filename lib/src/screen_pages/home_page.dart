@@ -243,10 +243,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                       18.0),
                                                   child: FlatCustomButton(
                                                     onTap: () {
-                                                      _saveToGallery(
+                                                     var asdf =  _saveToGallery(
                                                           data["image"]
                                                               as Uint8List,
                                                           _controller.text);
+                                                      _controller.text = "";
+                                                     if (asdf) {
+                                                       var snackBar = SnackBar(content: Text('Saved to gallery'), backgroundColor: Colors.lightGreen,);
+                                                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                     }else{
+                                                       var snackBar = SnackBar(content: Text('Failed to save, ordinal already in the gallery'), backgroundColor: Colors.red,);
+                                                       ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                     }
                                                     },
                                                     radius: 8,
                                                     width: 140,
@@ -498,10 +506,18 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                     18.0),
                                                 child: FlatCustomButton(
                                                   onTap: () {
-                                                    _saveToGallery(
+                                                    var asdf =  _saveToGallery(
                                                         data["image"]
-                                                            as Uint8List,
+                                                        as Uint8List,
                                                         _controller.text);
+                                                    _controller.text = "";
+                                                    if (asdf) {
+                                                      var snackBar = SnackBar(content: Text('Saved to gallery'), backgroundColor: Colors.lightGreen,);
+                                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                    }else{
+                                                      var snackBar = SnackBar(content: Text('Failed to save, ordinal already in the gallery'), backgroundColor: Colors.red,);
+                                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                    }
                                                   },
                                                   radius: 8,
                                                   width: 140,
@@ -560,18 +576,26 @@ class _HomePageState extends ConsumerState<HomePage> {
     );
   }
 
-  void _saveToGallery(Uint8List data, String name) {
+  bool _saveToGallery(Uint8List data, String nameFile) {
     try {
       final value = base64Encode(data);
       final myDataBox = Hive.box<MyData>('gallery');
-      final newData = MyData(name: 'New Data', base64: value);
+      //check if data already exist
+      for (var i = 0; i < myDataBox.length; i++) {
+        final MyData myData = myDataBox.getAt(i)!;
+        if (myData.base64 == value) {
+          return false;
+        }
+      }
+      final newData = MyData(name: nameFile, base64: value);
       myDataBox.add(newData);
+      return true;
     } catch (e) {
       showAlertDialog(
           context: context,
           title: "Error",
           content: "Error when saving to gallery");
-      print(e);
+      return false;
     }
   }
 }

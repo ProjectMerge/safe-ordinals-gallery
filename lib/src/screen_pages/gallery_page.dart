@@ -7,6 +7,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ordinals_pres/src/storage/data_model.dart';
 import 'package:ordinals_pres/src/support/app_sizes.dart';
 import 'package:ordinals_pres/src/support/breakpoints.dart';
+import 'package:ordinals_pres/src/widgets/alert_dialogs.dart';
+import 'package:ordinals_pres/src/widgets/hero_widget.dart';
 
 class GalleryPage extends ConsumerStatefulWidget {
   const GalleryPage({Key? key}) : super(key: key);
@@ -68,31 +70,50 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
             itemCount: _data.length,
             itemBuilder: (BuildContext context, int index) {
               var data = _data[index];
-              return Container(
-                padding: const EdgeInsets.all(12),
-                margin: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.white30,
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Colors.white30),
-                ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                          child: Image.memory(
-                        base64.decode(data.base64),
-                        fit: BoxFit.fill,
-                      )),
-                      gapH8,
-                      AutoSizeText(
-                        data.name,
-                        style: const TextStyle(color: Colors.black54),
-                        maxLines: 1,
-                        minFontSize: 8,
+              return Hero(
+                tag: data.name,
+                child: InkWell(
+                  onTap: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          backgroundColor: Colors.transparent,
+                          content: GalleryHeroWidget(
+                            tag: data.name,
+                            data: data,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    margin: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.white30,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.white30),
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                              child: Image.memory(
+                            base64.decode(data.base64),
+                            fit: BoxFit.fill,
+                          )),
+                          gapH8,
+                          AutoSizeText(
+                            data.name,
+                            style: const TextStyle(color: Colors.black54),
+                            maxLines: 1,
+                            minFontSize: 8,
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               );

@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ordinals_pres/src/screen_pages/gallery_page.dart';
 import 'package:ordinals_pres/src/screen_pages/home_page.dart';
-import 'package:ordinals_pres/src/screen_pages/upload_page.dart';
 import 'package:ordinals_pres/src/support/app_sizes.dart';
 import 'package:ordinals_pres/src/support/auth_repo.dart';
 import 'package:ordinals_pres/src/widgets/menu_item.dart';
@@ -169,10 +168,10 @@ Widget returnPage(int page) {
       return const GalleryPage(
         key: ValueKey("GalleryPage"),
       );
-    case 2:
-      return const UploadPage(
-        key: ValueKey("UploadPage"),
-      );
+    // case 2:
+    //   return const UploadPage(
+    //     key: ValueKey("UploadPage"),
+    //   );
     // case 2:
     //   return const StakeAddNodeScreen(
     //     key: ValueKey("StakeAddNodeScreen"),
