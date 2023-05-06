@@ -7,7 +7,9 @@ RUN apt-get update && apt-get install -y \
      git \
      gcc \
     unzip \
-     build-essential
+     build-essential \
+    sqlite3 \
+    libsqlite3-dev
 
 # Install protobuf compiler and gRPC plugins
 RUN apt-get install -y protobuf-compiler
@@ -29,15 +31,17 @@ RUN cd ./proto && \
     protoc --go_out=../grpcModels --go_opt=paths=source_relative --go-grpc_out=../grpcModels --go-grpc_opt=paths=source_relative *.proto
 
 # Build the Go project
-RUN go mod tidy && \
-    go build -o main .
+RUN go mod tidy
+RUN CGO_ENABLED=1 go build -o main .
 
 #Use the official TensorFlow image as the base image
 FROM debian:stable-slim
 
 RUN apt-get update && apt-get install -y \
      wget \
-     curl
+     curl \
+     sqlite3 \
+     libsqlite3-dev
 
 # Debian based root certificates
 RUN apt-get update \
