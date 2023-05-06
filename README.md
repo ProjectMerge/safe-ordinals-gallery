@@ -38,6 +38,7 @@ $ docker-compose up -d
 
 $ git pull
 $ docker-compose rm -s -v
+$ docker-compose up -d --build
 
 ## Support Our Mission 💎 ##
 
