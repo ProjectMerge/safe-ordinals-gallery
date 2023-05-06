@@ -3,14 +3,16 @@ import 'package:ordinals_pres/src/net_interface/interface.dart';
 import 'package:ordinals_pres/src/support/s_p.dart';
 
 final galleryProvider = FutureProvider<GalleryRes?>((ref) async {
+  List<GalleryRes> galleryRes = [];
   try {
-    dynamic response = await ref.read(networkProvider).get("/gallery", serverType: ComInterface.serverGoAPI, debug: true );
+    dynamic response = await ComInterface().get("/gallery", serverType: ComInterface.serverGoAPI, debug: true );
     if (response["gallery"] != null) {
-      return GalleryRes.fromJson(response["config"]);
+      return GalleryRes.fromJson(response);
     }else{
       return null;
     }
   } catch (e) {
+    print(e.toString());
     return null;
   }
 });

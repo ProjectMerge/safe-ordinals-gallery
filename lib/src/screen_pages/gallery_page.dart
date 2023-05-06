@@ -39,6 +39,7 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
   }
 
   Widget _buildDesktop(Size size) {
+    final gallery = ref.watch(galleryProvider);
     return Column(
       children: [
         gapH32,
@@ -55,7 +56,7 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
         ),
         gapH32,
         Expanded(
-            child: ref.watch(galleryProvider).when(
+            child: gallery.when(
                 data: (data) => GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
