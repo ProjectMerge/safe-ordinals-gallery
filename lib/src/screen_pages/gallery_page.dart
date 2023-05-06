@@ -104,6 +104,91 @@ class _GalleryPageState extends ConsumerState<GalleryPage> {
   }
 
   Widget _buildMobile(Size size) {
-    return Container();
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [
+              Color(0xFFEBEAF8),
+              Color(0xFFF5EEF1),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            gapH32,
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+                color: Colors.white24,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: const Text(
+                "Safe Ordinals Gallery",
+                style: TextStyle(fontSize: 14, color: Colors.black54),
+              ),
+            ),
+            gapH32,
+            Expanded(
+              child: GridView.builder(
+                physics: const BouncingScrollPhysics(),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                ),
+                itemCount: _data.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var data = _data[index];
+                  return Container(
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: Colors.white30,
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(color: Colors.white30),
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                              child: Image.memory(
+                                base64.decode(data.base64),
+                                fit: BoxFit.fill,
+                              )),
+                          gapH8,
+                          AutoSizeText(
+                            data.name,
+                            style: const TextStyle(color: Colors.black54),
+                            maxLines: 1,
+                            minFontSize: 8,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
+
 }

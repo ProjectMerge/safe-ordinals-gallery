@@ -81,7 +81,7 @@ class _HomePageState extends ConsumerState<HomePage> {
         child: SingleChildScrollView(
           child: SizedBox(
             width: size.width * 0.95,
-            height: size.height * 0.95,
+            height: size.height * 0.85,
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -89,7 +89,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                 children: [
                   gapH32,
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 10),
                     decoration: BoxDecoration(
                       color: Colors.white24,
                       borderRadius: BorderRadius.circular(10),
@@ -105,7 +106,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                     child: Row(
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 5),
                           decoration: const BoxDecoration(
                               color: Colors.white38,
                               borderRadius: BorderRadius.only(
@@ -115,7 +117,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                           child: const Center(
                             child: Text(
                               "ID ORD",
-                              style: TextStyle(fontSize: 14, color: Colors.black54),
+                              style: TextStyle(
+                                  fontSize: 14, color: Colors.black54),
                             ),
                           ),
                         ),
@@ -126,18 +129,21 @@ class _HomePageState extends ConsumerState<HomePage> {
                         ),
                         Expanded(
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 5),
                             decoration: BoxDecoration(
                                 color: Colors.white12,
                                 borderRadius: const BorderRadius.only(
                                   topRight: Radius.circular(10),
                                   bottomRight: Radius.circular(10),
                                 ),
-                                border: Border.all(color: Colors.white.withOpacity(0.5))),
+                                border: Border.all(
+                                    color: Colors.white.withOpacity(0.5))),
                             child: Center(
                               child: AutoSizeTextField(
                                 controller: _controller,
-                                style: const TextStyle(fontSize: 24, color: Colors.blueGrey),
+                                style: const TextStyle(
+                                    fontSize: 24, color: Colors.blueGrey),
                                 maxLines: 1,
                                 minFontSize: 8.0,
                                 stepGranularity: 2.0,
@@ -161,7 +167,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   gapH32,
                   Expanded(
                     child: AspectRatio(
-                      aspectRatio: 6/5,
+                      aspectRatio: 6 / 5,
                       child: Container(
                           decoration: BoxDecoration(
                             color: Colors.white54,
@@ -171,7 +177,8 @@ class _HomePageState extends ConsumerState<HomePage> {
                               data: (data) {
                                 if (data.isEmpty || data["status"] == "empty") {
                                   return const Center(
-                                    child: Text("Please enter ordinal ID to box above"),
+                                    child: Text(
+                                        "Please enter ordinal ID to box above"),
                                   );
                                 }
                                 final bool nsfw = data["nsfw"];
@@ -184,12 +191,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   }
                                   return Center(
                                     child: Container(
-                                        width: size.width * .5,
-                                        height: size.height * .6,
-                                        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 10),
                                         decoration: BoxDecoration(
                                           color: Colors.red.withOpacity(0.2),
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
                                         child: Center(child: Text(mess))),
                                   );
@@ -197,44 +204,65 @@ class _HomePageState extends ConsumerState<HomePage> {
                                 if (nsfw) {
                                   return Center(
                                     child: Container(
-                                        width: size.width * .5,
-                                        height: size.height * .6,
-                                        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 10),
                                         decoration: BoxDecoration(
                                           color: Colors.red.withOpacity(0.5),
-                                          borderRadius: BorderRadius.circular(10),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
                                         ),
-                                        child: const Center(child: Text("This ordinal is NSFW"))),
+                                        child: const Center(
+                                            child:
+                                                Text("This ordinal is NSFW"))),
                                   );
-                                } else if ((data["image"] as Uint8List?) != null) {
+                                } else if ((data["image"] as Uint8List?) !=
+                                    null) {
                                   return Center(
                                     child: AspectRatio(
-                                      aspectRatio: 6/5,
+                                      aspectRatio: 6 / 5,
                                       child: Container(
-                                          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 10),
                                           decoration: BoxDecoration(
-                                            color: Colors.lightGreen.withOpacity(0.2),
-                                            borderRadius: BorderRadius.circular(10),
+                                            color: Colors.lightGreen
+                                                .withOpacity(0.2),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                           ),
-                                          child: Center(child: Stack(
+                                          child: Center(
+                                              child: Stack(
                                             alignment: Alignment.center,
                                             children: [
-                                              Image.memory(data["image"] as Uint8List),
+                                              Image.memory(
+                                                  data["image"] as Uint8List),
                                               Align(
-                                                alignment: Alignment.bottomCenter,
+                                                alignment:
+                                                    Alignment.bottomCenter,
                                                 child: Padding(
-                                                  padding: const EdgeInsets.all(18.0),
+                                                  padding: const EdgeInsets.all(
+                                                      18.0),
                                                   child: FlatCustomButton(
                                                     onTap: () {
-                                                      _saveToGallery(data["image"] as Uint8List, _controller.text);
+                                                      _saveToGallery(
+                                                          data["image"]
+                                                              as Uint8List,
+                                                          _controller.text);
                                                     },
                                                     radius: 8,
                                                     width: 140,
                                                     height: 40,
-                                                    color: Colors.lightGreen.withOpacity(0.5),
-                                                    splashColor: Colors.lightGreen.withOpacity(0.8),
+                                                    color: Colors.lightGreen
+                                                        .withOpacity(0.5),
+                                                    splashColor: Colors
+                                                        .lightGreen
+                                                        .withOpacity(0.8),
                                                     child: const Text(
-                                                      "Save to gallery", style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold),),
+                                                      "Save to gallery",
+                                                      style: TextStyle(
+                                                          color: Colors.black54,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
                                                   ),
                                                 ),
                                               )
@@ -247,23 +275,26 @@ class _HomePageState extends ConsumerState<HomePage> {
                                   child: Container(
                                       width: size.width * .5,
                                       height: size.height * .6,
-                                      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 10),
                                       decoration: BoxDecoration(
                                         color: Colors.red.withOpacity(0.5),
                                         borderRadius: BorderRadius.circular(10),
                                       ),
-                                      child: const Center(child: Text("Invalid Ordinal ID"))),
+                                      child: const Center(
+                                          child: Text("Invalid Ordinal ID"))),
                                 );
                               },
-                              error: (error, s) => const Center(child: Text("Invalid Ordinal ID")),
-                              loading: () =>
-                                  Center(
+                              error: (error, s) => const Center(
+                                  child: Text("Invalid Ordinal ID")),
+                              loading: () => Center(
                                     child: SizedBox(
                                         width: 50,
                                         height: 50,
                                         child: CircularProgressIndicator(
                                           strokeWidth: 1.0,
-                                          color: Colors.blueGrey.withOpacity(0.5),
+                                          color:
+                                              Colors.blueGrey.withOpacity(0.5),
                                         )),
                                   ))),
                     ),
@@ -276,7 +307,257 @@ class _HomePageState extends ConsumerState<HomePage> {
   }
 
   Widget _buildMobile(Size size) {
-    return Container();
+    final pict = ref.watch(pictureProvider);
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+        decoration: BoxDecoration(
+          gradient: const LinearGradient(
+            colors: [
+              Color(0xFFEBEAF8),
+              Color(0xFFF5EEF1),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 1,
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            ),
+          ],
+        ),
+        child: SizedBox(
+          width: size.width * 0.95,
+          height: size.height * 0.85,
+          child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                gapH32,
+                Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 20, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: Colors.white24,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: const Text(
+                    "Safe Ordinals Checker",
+                    style: TextStyle(fontSize: 14, color: Colors.black54),
+                  ),
+                ),
+                gapH32,
+                SizedBox(
+                  height: size.height * .05,
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 5),
+                        decoration: const BoxDecoration(
+                            color: Colors.white38,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                            )),
+                        child: const Center(
+                          child: Text(
+                            "ID ORD",
+                            style: TextStyle(
+                                fontSize: 12, color: Colors.black54),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 35,
+                        width: 1,
+                        color: Colors.transparent,
+                      ),
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 5),
+                          decoration: BoxDecoration(
+                              color: Colors.white12,
+                              borderRadius: const BorderRadius.only(
+                                topRight: Radius.circular(10),
+                                bottomRight: Radius.circular(10),
+                              ),
+                              border: Border.all(
+                                  color: Colors.white.withOpacity(0.5))),
+                          child: Center(
+                            child: AutoSizeTextField(
+                              controller: _controller,
+                              style: const TextStyle(
+                                  fontSize: 24, color: Colors.blueGrey),
+                              maxLines: 1,
+                              minFontSize: 8.0,
+                              stepGranularity: 2.0,
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                fillColor: Colors.transparent,
+                                filled: true,
+                                hintText: 'Enter a search term',
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                gapH32,
+                Expanded(
+                  child: AspectRatio(
+                    aspectRatio: 6 / 5,
+                    child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white54,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: pict.when(
+                            data: (data) {
+                              if (data.isEmpty || data["status"] == "empty") {
+                                return const Center(
+                                  child: Text(
+                                      "Please enter ordinal ID to box above"),
+                                );
+                              }
+                              final bool nsfw = data["nsfw"];
+                              final String status = data["status"];
+                              final String? message = data["message"];
+                              if (status.toLowerCase() == "fail") {
+                                var mess = "";
+                                if (message == "400") {
+                                  mess = "Invalid Ordinal ID";
+                                }
+                                return Center(
+                                  child: Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 10),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red.withOpacity(0.2),
+                                        borderRadius:
+                                            BorderRadius.circular(10),
+                                      ),
+                                      child: Center(child: Text(mess))),
+                                );
+                              }
+                              if (nsfw) {
+                                return Center(
+                                  child: Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          horizontal: 10, vertical: 10),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red.withOpacity(0.5),
+                                        borderRadius:
+                                            BorderRadius.circular(10),
+                                      ),
+                                      child: const Center(
+                                          child:
+                                              Text("This ordinal is NSFW"))),
+                                );
+                              } else if ((data["image"] as Uint8List?) !=
+                                  null) {
+                                return Center(
+                                  child: AspectRatio(
+                                    aspectRatio: 6 / 5,
+                                    child: Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 10, vertical: 10),
+                                        decoration: BoxDecoration(
+                                          color: Colors.lightGreen
+                                              .withOpacity(0.2),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        child: Center(
+                                            child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            Image.memory(
+                                                data["image"] as Uint8List),
+                                            Align(
+                                              alignment:
+                                                  Alignment.bottomCenter,
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(
+                                                    18.0),
+                                                child: FlatCustomButton(
+                                                  onTap: () {
+                                                    _saveToGallery(
+                                                        data["image"]
+                                                            as Uint8List,
+                                                        _controller.text);
+                                                  },
+                                                  radius: 8,
+                                                  width: 140,
+                                                  height: 40,
+                                                  color: Colors.lightGreen
+                                                      .withOpacity(0.5),
+                                                  splashColor: Colors
+                                                      .lightGreen
+                                                      .withOpacity(0.8),
+                                                  child: const Text(
+                                                    "Save to gallery",
+                                                    style: TextStyle(
+                                                        color: Colors.black54,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ))),
+                                  ),
+                                );
+                              }
+                              return Center(
+                                child: Container(
+                                    width: size.width * .5,
+                                    height: size.height * .6,
+                                    margin: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    decoration: BoxDecoration(
+                                      color: Colors.red.withOpacity(0.5),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: const Center(
+                                        child: Text("Invalid Ordinal ID"))),
+                              );
+                            },
+                            error: (error, s) => const Center(
+                                child: Text("Invalid Ordinal ID")),
+                            loading: () => Center(
+                                  child: SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 1.0,
+                                        color:
+                                            Colors.blueGrey.withOpacity(0.5),
+                                      )),
+                                ))),
+                  ),
+                )
+              ]),
+        ),
+      ),
+    );
   }
 
   void _saveToGallery(Uint8List data, String name) {
@@ -286,7 +567,10 @@ class _HomePageState extends ConsumerState<HomePage> {
       final newData = MyData(name: 'New Data', base64: value);
       myDataBox.add(newData);
     } catch (e) {
-      showAlertDialog(context: context, title: "Error", content: "Error when saving to gallery");
+      showAlertDialog(
+          context: context,
+          title: "Error",
+          content: "Error when saving to gallery");
       print(e);
     }
   }
