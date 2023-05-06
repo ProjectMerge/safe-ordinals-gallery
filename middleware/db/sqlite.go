@@ -20,7 +20,7 @@ var Database *Client
 
 const dbName string = "./db/data.db"
 
-const dbVersion int = 1
+const dbVersion int = 2
 
 func InitDB() error {
 	if Database != nil {

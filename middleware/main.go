@@ -37,6 +37,7 @@ func main() {
 	app.Get("/ord/:tx", getTX)
 	app.Get("/ping", ping)
 	app.Post("/image/save", savePic)
+	app.Get("/gallery", getGallery)
 
 	go func() {
 		err := app.Listen(fmt.Sprintf(":%d", 4100))
@@ -54,6 +55,21 @@ func main() {
 	defer cancel()
 	_ = app.Shutdown()
 	os.Exit(0)
+}
+
+func getGallery(c *fiber.Ctx) error {
+	type Database struct {
+		OrdID  string `json:"ord_id" db:"ord_id"`
+		Base64 string `json:"base64" json:"base64"`
+	}
+	res, err := db.ReadArrayStruct[Database]("SELECT ord_id, base64 FROM ORD")
+	if err != nil {
+		utils.WrapErrorLog(err.Error())
+		return utils.ReportError(c, err.Error(), fiber.StatusBadRequest)
+	}
+	return c.Status(fiber.StatusOK).JSON(&fiber.Map{
+		"gallery": res,
+	})
 }
 
 func savePic(c *fiber.Ctx) error {
