@@ -47,3 +47,4 @@ lib/generated/*
 upload
 /middleware/grpcModels/
 /middleware/db/data.db
+/middleware/data.db

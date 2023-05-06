@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ordinals_pres/src/provider/gallery_provider.dart';
 import 'package:ordinals_pres/src/screen_pages/gallery_page.dart';
 import 'package:ordinals_pres/src/screen_pages/home_page.dart';
 import 'package:ordinals_pres/src/support/app_sizes.dart';
@@ -105,6 +106,7 @@ class _DesktopDashScreenState extends ConsumerState<MobileDashBoardScreen> with 
                             height: 50,
                             page: 1,
                             onTap: () {
+                              ref.invalidate(galleryProvider);
                               setState(() {
                                 page = 1;
                               });

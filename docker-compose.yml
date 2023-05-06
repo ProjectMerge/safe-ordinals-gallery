@@ -13,7 +13,7 @@ services:
       - "4100:4100"
     volumes:
       - type: bind
-        source: $HOME/myData
+        source: /d/OneDrive/Desktop/rocketbot_ordinal_presentation/middleware
         target: /app/db
     depends_on:
       - backend

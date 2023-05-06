@@ -91,7 +91,9 @@ func savePic(c *fiber.Ctx) error {
 		utils.WrapErrorLog(err.Error())
 		return utils.ReportError(c, err.Error(), fiber.StatusBadRequest)
 	}
-	return c.SendStatus(fiber.StatusOK)
+	return c.Status(fiber.StatusOK).JSON(&fiber.Map{
+		"message": "success",
+	})
 }
 
 func ping(c *fiber.Ctx) error {

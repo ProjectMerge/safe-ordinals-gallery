@@ -3,12 +3,9 @@ import 'dart:convert';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ordinals_pres/src/provider/gallery_provider.dart';
-import 'package:ordinals_pres/src/storage/data_model.dart';
 import 'package:ordinals_pres/src/support/app_sizes.dart';
 import 'package:ordinals_pres/src/support/breakpoints.dart';
-import 'package:ordinals_pres/src/widgets/alert_dialogs.dart';
 import 'package:ordinals_pres/src/widgets/hero_widget.dart';
 
 class GalleryPage extends ConsumerStatefulWidget {

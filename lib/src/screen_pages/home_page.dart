@@ -5,6 +5,7 @@ import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
+import 'package:ordinals_pres/src/net_interface/interface.dart';
 import 'package:ordinals_pres/src/provider/picture_provider.dart';
 import 'package:ordinals_pres/src/storage/data_model.dart';
 import 'package:ordinals_pres/src/support/app_sizes.dart';
@@ -580,10 +581,10 @@ class _HomePageState extends ConsumerState<HomePage> {
   Future<bool> _saveToGallery(Uint8List data, String nameFile) async {
     try {
       final value = base64Encode(data);
-      final net = ref.read(networkProvider);
-      await net.post("/image/save", body: {"base64": value, "name": nameFile});
+      await ComInterface().post("/image/save", body: {"base64": value, "name": nameFile});
       return true;
     } catch (e) {
+      print(e);
       showAlertDialog(
           context: context,
           title: "Error",
