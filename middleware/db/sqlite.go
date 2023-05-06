@@ -34,8 +34,8 @@ func InitDB() error {
 	exists := false
 
 	// if folder .config doesn't exist, create it
-	if _, err := os.Stat("./.data"); os.IsNotExist(err) {
-		err := os.Mkdir("./.data", 0777)
+	if _, err := os.Stat("./db"); os.IsNotExist(err) {
+		err := os.Mkdir("./db", 0777)
 		if err != nil {
 			log.Fatal(err)
 		}
