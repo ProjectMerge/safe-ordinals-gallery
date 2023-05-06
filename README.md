@@ -33,12 +33,14 @@ To get a first impression, you are welcome to play with our [public demo](https:
 $ git clone https://github.com/ProjectMerge/safe-ordinals-gallery.git ord_gallery
 $ cd ord_gallery
 $ docker-compose up -d
+```
 
 ## Update current build
-
+```bash
 $ git pull
 $ docker-compose rm -s -v
 $ docker-compose up -d --build
+```
 
 ## Support Our Mission 💎 ##
 
