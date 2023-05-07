@@ -1,7 +1,7 @@
 // ignore_for_file: constant_identifier_names
 bool isLoggedIn = false;
-const String API_URL = 'http://dockerhost:4100';
-const String AUTH_URL = 'http://dockerhost:4100';
+const String API_URL = 'http://localhost:4100';
+const String AUTH_URL = 'http://localhost:4100';
 const String EMAIL = "addr";
 const String NAME = "username";
 const String ID = "idUser";
