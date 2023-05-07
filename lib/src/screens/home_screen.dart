@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:ordinals_pres/src/desktop_screens/dash_desktop_screen.dart';
-import 'package:ordinals_pres/src/desktop_screens/dash_mobile_screen.dart';
+import 'package:ordinals_pres/src/mobile_screens/dash_mobile_screen.dart';
 import 'package:ordinals_pres/src/provider/title_provider.dart';
 import 'package:ordinals_pres/src/support/s_p.dart';
 import 'package:ordinals_pres/src/widgets/background_widget.dart';

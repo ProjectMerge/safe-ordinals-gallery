@@ -104,7 +104,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                   ),
                   gapH32,
                   SizedBox(
-                    height: size.height * .05,
+                    height: size.height * .04,
                     child: Row(
                       children: [
                         Container(
@@ -132,7 +132,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         Expanded(
                           child: Container(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 5),
+                                horizontal: 10, vertical: 5),
                             decoration: BoxDecoration(
                                 color: Colors.white12,
                                 borderRadius: const BorderRadius.only(
@@ -145,11 +145,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                               child: AutoSizeTextField(
                                 controller: _controller,
                                 style: const TextStyle(
-                                    fontSize: 24, color: Colors.blueGrey),
+                                    fontSize: 18, color: Colors.blueGrey),
                                 maxLines: 1,
                                 minFontSize: 8.0,
                                 stepGranularity: 2.0,
                                 decoration: const InputDecoration(
+                                  isDense: true,
                                   border: InputBorder.none,
                                   focusedBorder: InputBorder.none,
                                   enabledBorder: InputBorder.none,
@@ -258,20 +259,19 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                        if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                                      }
                                                     },
+                                                    borderColor: Colors.white38,
                                                     radius: 8,
-                                                    width: 140,
-                                                    height: 40,
+                                                    width: 60,
+                                                    height: 60,
                                                     color: Colors.lightGreen
                                                         .withOpacity(0.5),
                                                     splashColor: Colors
                                                         .lightGreen
                                                         .withOpacity(0.8),
-                                                    child: const Text(
-                                                      "Save to gallery",
-                                                      style: TextStyle(
-                                                          color: Colors.black54,
-                                                          fontWeight:
-                                                              FontWeight.bold),
+                                                    child: const Icon(
+                                                      Icons.add,
+                                                      color: Colors.black54,
+                                                      size: 48,
                                                     ),
                                                   ),
                                                 ),
@@ -413,6 +413,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                               minFontSize: 8.0,
                               stepGranularity: 2.0,
                               decoration: const InputDecoration(
+                                isDense: true,
                                 border: InputBorder.none,
                                 focusedBorder: InputBorder.none,
                                 enabledBorder: InputBorder.none,

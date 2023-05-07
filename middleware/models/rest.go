@@ -7,4 +7,5 @@ type ResponseJSON struct {
 	NsfwPic  bool   `json:"nsfwPic"`
 	Base64   string `json:"base64"`
 	Filename string `json:"filename"`
+	Exists   bool   `json:"exists"`
 }

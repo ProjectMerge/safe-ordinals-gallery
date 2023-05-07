@@ -121,6 +121,8 @@ func getTX(c *fiber.Ctx) error {
 		utils.WrapErrorLog(err.Error())
 		return utils.ReportError(c, err.Error(), fiber.StatusBadRequest)
 	}
+	b := db.ReadValueEmpty[bool]("SELECT EXISTS(SELECT id FROM ORD WHERE ord_id = ?) as exist", tx)
+	r.Exists = b
 	return c.Status(fiber.StatusOK).JSON(*r)
 }
 

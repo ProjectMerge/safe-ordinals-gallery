@@ -92,24 +92,24 @@ class _DesktopDashScreenState extends ConsumerState<DesktopDashBoardScreen> with
                               MenuItem(
                                 page: 0,
                                 onTap: () {
+                                  ref.invalidate(galleryProvider);
                                   setState(() {
                                     page = 0;
                                   });
                                 },
                                 pageCurrent: page,
-                                picture: "assets/images/home.png",
+                                picture: "assets/images/gallery.png",
                               ),
                               gapH48,
                               MenuItem(
                                 page: 1,
                                 onTap: () {
-                                  ref.invalidate(galleryProvider);
                                   setState(() {
                                     page = 1;
                                   });
                                 },
                                 pageCurrent: page,
-                                picture: "assets/images/gallery.png",
+                                picture: "assets/images/home.png",
                               ),
                               gapH48,
                               ref.watch(authStateChangesProvider).when(
@@ -163,13 +163,14 @@ class _DesktopDashScreenState extends ConsumerState<DesktopDashBoardScreen> with
 Widget returnPage(int page) {
   switch (page) {
     case 0:
-      return const HomePage(
-        key: ValueKey("HomeScreen"),
-      );
-    case 1:
       return const GalleryPage(
         key: ValueKey("GalleryPage"),
       );
+    case 1:
+      return const HomePage(
+        key: ValueKey("HomeScreen"),
+      );
+
     // case 2:
     //   return const UploadPage(
     //     key: ValueKey("UploadPage"),
