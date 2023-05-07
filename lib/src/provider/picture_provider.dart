@@ -26,7 +26,6 @@ class PicProvider extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
       if (response.status!.toLowerCase() == "ok") {
         if (response.nsfwText == false && response.nsfwPic == false) {
           Uint8List bytesImage = const Base64Decoder().convert(response.base64!);
-          print(response.exists);
           state = AsyncData(<String, dynamic>{"image": bytesImage, "filename": response.filename, "nsfw": false, "status": response.status, "exists": response.exists});
         } else {
           state = AsyncData(<String, dynamic>{"image": "", "filename": "", "message": "is nsfw", "nsfw": true, "status": response.status, "exists": response.exists});
@@ -36,7 +35,6 @@ class PicProvider extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
         return;
       }
     } catch (e, st) {
-      print(e.toString());
       state = AsyncError(e, st);
     }
   }
@@ -52,7 +50,6 @@ class PicProvider extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
         return NSFWResponse(status: err.status, message: err.message ?? r.statusCode.toString());
       }
     } catch (e) {
-      print(e);
       return NSFWResponse(status: "Fail");
     }
   }

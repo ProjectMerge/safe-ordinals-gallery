@@ -2,9 +2,7 @@ import 'dart:convert';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:ordinals_pres/src/storage/data_model.dart';
 import 'package:ordinals_pres/src/support/app_sizes.dart';
-import 'package:ordinals_pres/src/widgets/flat_custom_btn.dart';
 
 class GalleryHeroWidget extends StatelessWidget {
   final String tag;

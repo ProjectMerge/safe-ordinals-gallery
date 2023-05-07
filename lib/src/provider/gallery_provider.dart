@@ -12,7 +12,6 @@ final galleryProvider = FutureProvider<GalleryRes?>((ref) async {
       return null;
     }
   } catch (e) {
-    print(e.toString());
     return null;
   }
 });

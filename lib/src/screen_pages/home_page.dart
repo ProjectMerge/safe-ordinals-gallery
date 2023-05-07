@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 import 'dart:typed_data';
 
@@ -5,13 +7,10 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive/hive.dart';
 import 'package:ordinals_pres/src/net_interface/interface.dart';
 import 'package:ordinals_pres/src/provider/picture_provider.dart';
-import 'package:ordinals_pres/src/storage/data_model.dart';
 import 'package:ordinals_pres/src/support/app_sizes.dart';
 import 'package:ordinals_pres/src/support/breakpoints.dart';
-import 'package:ordinals_pres/src/support/s_p.dart';
 import 'package:ordinals_pres/src/widgets/alert_dialogs.dart';
 import 'package:ordinals_pres/src/widgets/flat_custom_btn.dart';
 
@@ -269,10 +268,12 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                     splashColor: Colors
                                                         .lightGreen
                                                         .withOpacity(0.8),
-                                                    child: const Icon(
-                                                      Icons.add,
-                                                      color: Colors.black54,
-                                                      size: 48,
+                                                    child: Center(
+                                                      child: const Icon(
+                                                        Icons.add,
+                                                        color: Colors.black54,
+                                                        size: 48,
+                                                      ),
                                                     ),
                                                   ) : Container(
                                                     width: 120,
@@ -516,41 +517,54 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                 data["image"] as Uint8List),
                                             Align(
                                               alignment:
-                                                  Alignment.bottomCenter,
+                                              Alignment.bottomCenter,
                                               child: Padding(
-                                                padding: const EdgeInsets.all(
-                                                    18.0),
-                                                child: FlatCustomButton(
-                                                  onTap: () async {
-                                                    var asdf =  await _saveToGallery(
-                                                        data["image"]
-                                                        as Uint8List,
-                                                        _controller.text);
-                                                    _controller.text = "";
-                                                    if (asdf) {
-                                                      var snackBar = const SnackBar(content: Text('Saved to gallery'), backgroundColor: Colors.lightGreen,);
-                                                      if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                                    }else{
-                                                      var snackBar = const SnackBar(content: Text('Failed to save, ordinal already in the gallery'), backgroundColor: Colors.red,);
-                                                      if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                                    }
-                                                  },
-                                                  radius: 8,
-                                                  width: 140,
-                                                  height: 40,
-                                                  color: Colors.lightGreen
-                                                      .withOpacity(0.5),
-                                                  splashColor: Colors
-                                                      .lightGreen
-                                                      .withOpacity(0.8),
-                                                  child: const Text(
-                                                    "Save to gallery",
-                                                    style: TextStyle(
+                                                  padding: const EdgeInsets.all(
+                                                      18.0),
+                                                  child: (data["exists"] as bool) == false ?  FlatCustomButton(
+                                                    onTap: () async {
+                                                      var asdf =  await _saveToGallery(
+                                                          data["image"]
+                                                          as Uint8List,
+                                                          _controller.text);
+                                                      _controller.text = "";
+                                                      if (asdf) {
+                                                        var snackBar = const SnackBar(content: Text('Saved to gallery'), backgroundColor: Colors.lightGreen,);
+                                                        if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                      }else{
+                                                        var snackBar = const SnackBar(content: Text('Failed to save, ordinal already in the gallery'), backgroundColor: Colors.red,);
+                                                        if (context.mounted) ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                      }
+                                                    },
+                                                    borderColor: Colors.white38,
+                                                    radius: 8,
+                                                    width: 60,
+                                                    height: 60,
+                                                    color: Colors.lightGreen
+                                                        .withOpacity(0.5),
+                                                    splashColor: Colors
+                                                        .lightGreen
+                                                        .withOpacity(0.8),
+                                                    child: Center(
+                                                      child: const Icon(
+                                                        Icons.add,
                                                         color: Colors.black54,
-                                                        fontWeight:
-                                                            FontWeight.bold),
-                                                  ),
-                                                ),
+                                                        size: 48,
+                                                      ),
+                                                    ),
+                                                  ) : Container(
+                                                    width: 120,
+                                                    height: 60,
+                                                    padding: const EdgeInsets.all(8),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.pink,
+                                                      borderRadius: BorderRadius.circular(8),
+                                                    ),
+                                                    child: const Center(child: AutoSizeText("Already in gallery",
+                                                        maxLines: 1,
+                                                        minFontSize: 8.0,
+                                                        style: TextStyle(color: Colors.white70)),),
+                                                  )
                                               ),
                                             )
                                           ],
@@ -598,7 +612,6 @@ class _HomePageState extends ConsumerState<HomePage> {
       await ComInterface().post("/image/save", body: {"base64": value, "name": nameFile});
       return true;
     } catch (e) {
-      print(e);
       showAlertDialog(
           context: context,
           title: "Error",

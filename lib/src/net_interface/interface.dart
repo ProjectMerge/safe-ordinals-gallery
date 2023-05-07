@@ -108,7 +108,6 @@ class ComInterface {
       mUrl = globals.AUTH_URL + url;
     }
     bearer = "JWT ${daoJWT ?? ""}";
-    // print("POST: $mUrl");
     Map<String, String> mHeaders = {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Headers": "*",
