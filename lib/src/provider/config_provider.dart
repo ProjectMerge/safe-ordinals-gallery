@@ -7,7 +7,7 @@ final configProvider = FutureProvider.family<String?, int>((ref, id) async {
     Map<String, dynamic> m = {
       "idNode": id,
     };
-    dynamic response = await ref.read(networkProvider).post("/masternode/non/config", body: m, serverType: ComInterface.serverGoAPI, debug: true );
+    dynamic response = await ref.read(networkProvider).post("/masternode/non/config", body: m, serverType: ComInterface.serverGoAPI, debug: false );
     if (response["config"] != null) {
       return response["config"];
     }else{

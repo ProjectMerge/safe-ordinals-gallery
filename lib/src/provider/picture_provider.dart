@@ -44,7 +44,7 @@ class PicProvider extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
   Future<NSFWResponse> processImage(String tx) async {
     try {
       http.Response r =
-          await ComInterface().get("/ord/$tx", debug: true, serverType: ComInterface.serverAUTH, type: ComInterface.typePlain, request: {});
+          await ComInterface().get("/ord/$tx", debug: false, serverType: ComInterface.serverAUTH, type: ComInterface.typePlain, request: {});
       if (r.statusCode == 200) {
         return NSFWResponse.fromJson(jsonDecode(r.body));
       } else {

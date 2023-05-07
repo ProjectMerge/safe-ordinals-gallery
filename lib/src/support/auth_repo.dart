@@ -94,7 +94,7 @@ class AuthRepository {
 
   Future<bool> daoLogin() async {
     ComInterface ci = ComInterface();
-    Response r = await ci.get("/ping", debug: true, serverType: ComInterface.serverAUTH, type: ComInterface.typePlain, request: {});
+    Response r = await ci.get("/ping", debug: false, serverType: ComInterface.serverAUTH, type: ComInterface.typePlain, request: {});
     if (r.statusCode == 200) {
       return true;
     } else {
