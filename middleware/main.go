@@ -34,10 +34,10 @@ func main() {
 	})
 	app.Use(cors.New())
 
-	app.Get("/ord/:tx", getTX)
-	app.Get("/ping", ping)
-	app.Post("/image/save", savePic)
-	app.Get("/gallery", getGallery)
+	app.Get("/api/ord/:tx", getTX)
+	app.Get("/api/ping", ping)
+	app.Post("/api/image/save", savePic)
+	app.Get("/api/gallery", getGallery)
 
 	go func() {
 		err := app.Listen(fmt.Sprintf(":%d", 4100))
