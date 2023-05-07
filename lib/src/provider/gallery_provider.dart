@@ -5,7 +5,7 @@ import 'package:ordinals_pres/src/support/s_p.dart';
 final galleryProvider = FutureProvider<GalleryRes?>((ref) async {
   List<GalleryRes> galleryRes = [];
   try {
-    dynamic response = await ComInterface().get("/gallery", serverType: ComInterface.serverGoAPI, debug: true );
+    dynamic response = await ComInterface().get("/gallery", serverType: ComInterface.serverGoAPI, debug: false );
     if (response["gallery"] != null) {
       return GalleryRes.fromJson(response);
     }else{
