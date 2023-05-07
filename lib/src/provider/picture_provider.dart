@@ -26,9 +26,10 @@ class PicProvider extends StateNotifier<AsyncValue<Map<String, dynamic>>> {
       if (response.status!.toLowerCase() == "ok") {
         if (response.nsfwText == false && response.nsfwPic == false) {
           Uint8List bytesImage = const Base64Decoder().convert(response.base64!);
-          state = AsyncData(<String, dynamic>{"image": bytesImage, "filename": response.filename, "nsfw": false, "status": response.status});
+          print(response.exists);
+          state = AsyncData(<String, dynamic>{"image": bytesImage, "filename": response.filename, "nsfw": false, "status": response.status, "exists": response.exists});
         } else {
-          state = AsyncData(<String, dynamic>{"image": "", "filename": "", "message": "is nsfw", "nsfw": true, "status": response.status});
+          state = AsyncData(<String, dynamic>{"image": "", "filename": "", "message": "is nsfw", "nsfw": true, "status": response.status, "exists": response.exists});
         }
       } else {
         state = state = AsyncData(<String, dynamic>{"message": response.message, "nsfw": false, "status": response.status});

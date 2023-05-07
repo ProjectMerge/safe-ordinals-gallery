@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -244,7 +245,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                 child: Padding(
                                                   padding: const EdgeInsets.all(
                                                       18.0),
-                                                  child: FlatCustomButton(
+                                                  child: (data["exists"] as bool) == false ?  FlatCustomButton(
                                                     onTap: () async {
                                                      var asdf =  await _saveToGallery(
                                                           data["image"]
@@ -273,7 +274,19 @@ class _HomePageState extends ConsumerState<HomePage> {
                                                       color: Colors.black54,
                                                       size: 48,
                                                     ),
-                                                  ),
+                                                  ) : Container(
+                                                    width: 120,
+                                                    height: 60,
+                                                    padding: const EdgeInsets.all(8),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.pink,
+                                                      borderRadius: BorderRadius.circular(8),
+                                                    ),
+                                                    child: const Center(child: AutoSizeText("Already in gallery",
+                                                        maxLines: 1,
+                                                        minFontSize: 8.0,
+                                                        style: TextStyle(color: Colors.white70)),),
+                                                  )
                                                 ),
                                               )
                                             ],

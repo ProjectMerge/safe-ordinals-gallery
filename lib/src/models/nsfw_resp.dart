@@ -5,6 +5,7 @@ class NSFWResponse {
   bool? nsfwPic;
   String? base64;
   String? filename;
+  bool? exists;
 
   NSFWResponse({this.status, this.message, this.nsfwText, this.nsfwPic, this.base64, this.filename});
 
@@ -15,6 +16,7 @@ class NSFWResponse {
     nsfwPic = json['nsfwPic'];
     base64 = json['base64'];
     filename = json['filename'];
+    exists = json['exists'];
   }
 
   Map<String, dynamic> toJson() {
@@ -25,6 +27,7 @@ class NSFWResponse {
     data['nsfwPic'] = nsfwPic;
     data['base64'] = base64;
     data['filename'] = filename;
+    data['exists'] = exists;
     return data;
   }
 }
