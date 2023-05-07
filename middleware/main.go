@@ -104,12 +104,12 @@ func ping(c *fiber.Ctx) error {
 }
 
 func getTX(c *fiber.Ctx) error {
-	tx := c.Params("tx")
-	if len(tx) < 2 {
+	preTX := c.Params("tx")
+	if len(preTX) < 2 {
 		return utils.ReportError(c, "tx is too short", fiber.StatusBadRequest)
 	}
 	//subtract 2 places from the end
-	tx = tx[:len(tx)-2]
+	tx := preTX[:len(preTX)-2]
 	res, err := utils.GETRequest[models.RawTX](fmt.Sprintf("https://blockstream.info/api/tx/%s", tx))
 	if err != nil {
 		utils.WrapErrorLog(err.Error())
@@ -121,8 +121,9 @@ func getTX(c *fiber.Ctx) error {
 		utils.WrapErrorLog(err.Error())
 		return utils.ReportError(c, err.Error(), fiber.StatusBadRequest)
 	}
-	b := db.ReadValueEmpty[bool]("SELECT EXISTS(SELECT id FROM ORD WHERE ord_id = ?) as exist", tx)
+	b := db.ReadValueEmpty[bool]("SELECT EXISTS(SELECT id FROM ORD WHERE ord_id = ?)", preTX)
 	r.Exists = b
+	utils.ReportMessage(fmt.Sprintf("tx: %v", b))
 	return c.Status(fiber.StatusOK).JSON(*r)
 }
 
