@@ -1,0 +1,12 @@
+{
+    email info@rocketbot.pro
+}
+
+
+https://domain.com {
+    reverse_proxy frontend:80
+}
+
+https://domain.com/api/* {
+    reverse_proxy middleware:4100
+}
