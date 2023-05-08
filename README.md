@@ -29,13 +29,22 @@ To get a first impression, you are welcome to play with our [public demo](https:
 
 ## Getting Started ##
 
+### Prerequisites ###
+
+```bash
+$ mkdir -p $HOME/myData
+...or if you are on Windows, edit docker-compose.yml and replace $HOME/myData with /c/myData
+```
+
+### Running it locally ###
+
 ```bash
 $ git clone https://github.com/ProjectMerge/safe-ordinals-gallery.git ord_gallery
 $ cd ord_gallery
 $ docker-compose up -d
 ```
 
-## Running it on the web ##
+### Running it on the web ###
 
 ```bash
 $ git clone https://github.com/ProjectMerge/safe-ordinals-gallery.git ord_gallery
