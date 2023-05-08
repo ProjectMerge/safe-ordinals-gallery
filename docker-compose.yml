@@ -3,15 +3,15 @@ services:
   frontend:
     build:
       context: .
-    expose:
-      - "80"
+    ports:
+      - "8080:8080"
 
   middleware:
     build:
       context: ./middleware
       dockerfile: Dockerfile
-    expose:
-      - "4100"
+    ports:
+      - "4100:4100"
     volumes:
       - type: bind
         source: $HOME/myData
@@ -26,18 +26,24 @@ services:
     build:
       context: https://github.com/M1chlCZ/nsfw_sherlock.git#main
       dockerfile: Dockerfile
-    expose:
-      - "4000"
+    ports:
+      - "4000:4000"
     restart: always
 
   caddy:
-    build:
-      context: ./caddy
-      dockerfile: Dockerfile
+    image: caddy:2-alpine
+    restart: always
     ports:
       - "80:80"
       - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
     depends_on:
       - frontend
       - middleware
-    restart: always
+      - backend
+
+networks:
+  default:
+    external:
+      name: caddy_network

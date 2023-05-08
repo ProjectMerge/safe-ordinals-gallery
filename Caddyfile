@@ -1,0 +1,8 @@
+{
+    acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+
+domain.com {
+    reverse_proxy /api/* middleware:4100
+    reverse_proxy frontend:8080
+}
