@@ -27,14 +27,12 @@ To get a first impression, you are welcome to play with our [public demo](https:
 
 - Docker
 
-## Getting Started ##
-
-### Prerequisites ###
-
 ```bash
 $ mkdir -p $HOME/myData
 ...or if you are on Windows, edit docker-compose.yml and replace $HOME/myData with /c/myData
 ```
+
+## Getting Started ##
 
 ### Running it locally ###
 
@@ -50,14 +48,14 @@ $ docker-compose up -d
 $ git clone https://github.com/ProjectMerge/safe-ordinals-gallery.git ord_gallery
 $ cd ord_gallery
 $ Edit ./Caddyfile and replace "domain.com" with your domain name
-$ docker-compose -f docker-compose-net.yml up
+$ docker-compose -f docker-compose-net.yml up -d
 ```
 
 ## Update current build
 ```bash
 $ git pull
-$ docker-compose rm -s -v
-$ docker-compose up -d --build
+$ docker-compose rm -s -v (-f docker-compose-net.yml)
+$ docker-compose up -d --build (-f docker-compose-net.yml)
 ```
 
 ## Support Our Mission 💎 ##
