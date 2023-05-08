@@ -35,6 +35,15 @@ $ cd ord_gallery
 $ docker-compose up -d
 ```
 
+## Running it on the web ##
+
+```bash
+$ git clone https://github.com/ProjectMerge/safe-ordinals-gallery.git ord_gallery
+$ cd ord_gallery
+$ Edit ./Caddyfile and replace "domain.com" with your domain name
+$ docker-compose -f docker-compose-net.yml up
+```
+
 ## Update current build
 ```bash
 $ git pull

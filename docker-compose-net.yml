@@ -3,8 +3,10 @@ services:
   frontend:
     build:
       context: .
+      dockerfile: Dockerfile-net
     ports:
-      - "80:80"
+      - "8080:8080"
+
   middleware:
     build:
       context: ./middleware
@@ -20,6 +22,7 @@ services:
     environment:
       - SERVER_HOST=backend:4000
     restart: always
+
   backend:
     build:
       context: https://github.com/M1chlCZ/nsfw_sherlock.git#main
@@ -27,3 +30,21 @@ services:
     ports:
       - "4000:4000"
     restart: always
+
+  caddy:
+    image: caddy:2-alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    depends_on:
+      - frontend
+      - middleware
+      - backend
+
+networks:
+  default:
+    external:
+      name: caddy_network

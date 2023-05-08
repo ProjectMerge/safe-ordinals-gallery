@@ -30,5 +30,6 @@ RUN flutter build web --release --web-renderer html
 # Stage 2 - Build the image
 FROM nginx:alpine
 COPY --from=build-env /usr/local/bin/app/build/web /usr/share/nginx/html
-EXPOSE 80
+COPY ./nginx.conf /etc/nginx/conf.d/
+EXPOSE 8080
 CMD ["nginx", "-g", "daemon off;"]
