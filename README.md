@@ -21,7 +21,7 @@ Ordinals best features are immutability and censorship resistance. Unfortunately
 - `words` - optical character recognition(OCR) of words safe to use at work
 - - obscenity, profanity, & vulgar speech
 
-To get a first impression, you are welcome to play with our [public demo](https://).
+To get a first impression, you are welcome to play with our [public demo]([https://](https://gallery.rocketbot.pro/)).
 
 ## Prerequisites
 
