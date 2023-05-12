@@ -1,5 +1,4 @@
 # Safe ordinals gallery: Creating An Enjoyable Experience
-================================================================================
 
 [![License: AGPL](https://img.shields.io/badge/license-AGPL-blue.svg)](https://)
 [![About TEAM](https://img.shields.io/badge/wiki-the%20team-4aa087.svg)](https://github.com/ProjectMerge/safe-ordinals-gallery/wiki/)
@@ -21,7 +20,7 @@ Ordinals best features are immutability and censorship resistance. Unfortunately
 - `words` - optical character recognition(OCR) of words safe to use at work
 - - obscenity, profanity, & vulgar speech
 
-To get a first impression, you are welcome to play with our [public demo]([https://https://gallery.rocketbot.pro/]).
+To get a first impression, you are welcome to play with our [public demo](https://https://gallery.rocketbot.pro/).
 
 ## Prerequisites
 
