@@ -25,7 +25,7 @@ RUN flutter pub get
 # Copy the rest of the app files
 COPY . /usr/local/bin/app
 
-RUN flutter build web --release --web-renderer html
+RUN flutter build web --web-renderer canvaskit --release
 
 # Stage 2 - Build the image
 FROM nginx:alpine
