@@ -22,7 +22,7 @@ services:
     restart: always
   backend:
     build:
-      context: https://github.com/M1chlCZ/nsfw_sherlock.git#main
+      context: https://github.com/ProjectMerge/nsfw_sherlock.git#main
       dockerfile: Dockerfile
     ports:
       - "4000:4000"
